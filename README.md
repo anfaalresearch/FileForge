@@ -4,6 +4,8 @@
 
 **Private, browser-based file tools. No uploads. No accounts. No servers.**
 
+[🌐 **Live Demo**](https://anfaalresearch.github.io/FileForge/)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-6366f1.svg)](#-license)
 [![HTML](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
@@ -18,8 +20,8 @@
 ## 📖 Table of Contents
 
 - [What is FileForge?](#-what-is-fileforge)
+- [Live Demo](#-live-demo)
 - [Tools](#-tools)
-- [How to Use](#-how-to-use)
 - [Privacy](#-privacy)
 - [Tech Stack](#-tech-stack)
 - [Project Structure](#-project-structure)
@@ -38,6 +40,12 @@ FileForge is a **100% client-side** file processing toolkit that runs entirely i
 
 There is no backend, no cloud storage, no analytics, and no accounts. Open the page, use a tool, download your result.
 
+### 🌐 Live Demo
+
+Try FileForge directly in your browser:
+
+**[https://anfaalresearch.github.io/FileForge/](https://anfaalresearch.github.io/FileForge/)**
+
 ---
 
 ## 🧰 Tools
@@ -51,52 +59,6 @@ There is no backend, no cloud storage, no analytics, and no accounts. Open the p
 | **Image to PDF** | Combine multiple images into a single PDF | Any image → PDF |
 | **File Size Reducer** | Compress with live size estimation | PNG · JPG · WEBP |
 | **File Information** | Inspect metadata — name, MIME, size, dimensions | Any file |
-
----
-
-## 🧑‍💻 How to Use
-
-Using FileForge is simple — there is no account, installation, or upload required.
-
-### 1. Open FileForge
-Launch `index.html` in your browser or open your deployed FileForge website.
-
-### 2. Choose a Tool
-From the home page or navigation, select the tool you need:
-- **Image Converter** — change an image from one format to another.
-- **Image Resizer** — resize an image using custom dimensions or presets.
-- **Image Compressor** — reduce image file size while controlling quality.
-- **Image Cropper** — crop, rotate, zoom, and adjust aspect ratio.
-- **Image to PDF** — combine one or multiple images into a PDF.
-- **File Size Reducer** — reduce supported image file sizes.
-- **File Information** — inspect basic file information such as name, type, size, and dimensions.
-
-### 3. Select Your File
-Drag and drop a file into the tool, or click the upload area to choose a file from your device.
-
-Your file is processed directly inside your browser. It is not uploaded to any server.
-
-### 4. Configure the Tool
-Depending on the selected tool, adjust available options such as:
-- Output format
-- Width and height
-- Compression quality
-- Aspect ratio / crop area
-- Rotation and zoom
-- PDF page orientation
-
-### 5. Process and Download
-Start the operation using the tool's action button. Once processing is complete, download the generated file directly to your device.
-
----
-
-## 🔐 What Happens to Your File?
-
-FileForge processes files locally using browser APIs such as the **Canvas API** and **FileReader API**.
-
-- Your files remain on your device during processing and are not uploaded to any server.
-- Object URLs (`blob:`) created during processing are revoked after use to keep memory usage minimal.
-- Privacy note: FileForge loads jsPDF from CDN only when generating PDFs. See the Privacy section for details.
 
 ---
 
@@ -118,15 +80,15 @@ FileForge was designed from the ground up with privacy as the first constraint, 
 
 | Layer | Technology |
 |---|---|
-| **Structure** | HTML5 (semantic, accessible markup) |
-| **Styling** | Vanilla CSS3 (custom properties, grid, glassmorphism) |
-| **Logic** | Vanilla JavaScript ES2020+ (IIFEs, async/await, Canvas API) |
-| **Font** | [Inter](https://fonts.google.com/specimen/Inter) via Google Fonts |
-| **PDF generation** | [jsPDF 2.5.1](https://github.com/parallax/jsPDF) via CDN |
-| **Image processing** | HTML5 Canvas API |
-| **File reading** | FileReader API + File Drag & Drop API |
-| **Routing** | URL `?tool=` query param + `history.pushState` |
-| **Persistence** | `localStorage` (theme + recently used tools only) |
+| Structure | HTML5 (semantic, accessible markup) |
+| Styling | Vanilla CSS3 (custom properties, grid, glassmorphism) |
+| Logic | Vanilla JavaScript ES2020+ (IIFEs, async/await, Canvas API) |
+| Font | [Inter](https://fonts.google.com/specimen/Inter) via Google Fonts |
+| PDF generation | [jsPDF 2.5.1](https://github.com/parallax/jsPDF) via CDN |
+| Image processing | HTML5 Canvas API |
+| File reading | FileReader API + File Drag & Drop API |
+| Routing | URL `?tool=` query param + `history.pushState` |
+| Persistence | `localStorage` (theme + recently used tools only) |
 
 ---
 
@@ -136,8 +98,7 @@ FileForge was designed from the ground up with privacy as the first constraint, 
 FileForge/
 ├── index.html              # Landing page (hero, tool cards, privacy section)
 ├── tools.html              # All tools shell (SPA-style panel switching)
-├── README.md               # Documentation
-├── .gitignore              # Ignored system & IDE files
+├── README.md
 │
 ├── css/
 │   ├── style.css           # Full design system — tokens, components, layouts
@@ -166,7 +127,7 @@ FileForge requires **no build step, no npm, no dependencies to install**.
 ### Option 1 — Open directly
 
 ```bash
-git clone https://github.com/your-username/FileForge.git
+git clone https://github.com/anfaalresearch/FileForge.git
 cd FileForge
 
 # macOS
@@ -194,7 +155,7 @@ npx serve .
 php -S localhost:3000
 ```
 
-Then open: `http://localhost:3000`
+Then open [http://localhost:3000](http://localhost:3000).
 
 ---
 
@@ -208,12 +169,12 @@ All shared utilities live on the `window.FF` object, defined in `utils.js` and a
 FF.formatFileSize(bytes)          → "1.4 MB"
 FF.getFileExtension(filename)     → "png"
 FF.mimeToExt(mime)                → "jpg"
-FF.mimeToFriendly(mime)           → "JPEG"
+FF.mimeToFriendly(mime)          → "JPEG"
 FF.changeExt(filename, ext)       → "photo.webp"
 FF.loadImage(file)                → Promise<HTMLImageElement>
 FF.downloadBlob(blob, filename)   → triggers browser download + auto-revoke
 FF.setupDropZone(zone, input, cb) → wires drag & drop + file input
-FF.show(el) / FF.hide(el)         → add/remove .hidden class
+FF.show(el) / FF.hide(el)        → add/remove .hidden class
 FF.toast(message, type)           → type: 'success' | 'error' | 'warning' | 'info'
 ```
 
@@ -243,7 +204,7 @@ Every tool follows the same IIFE structure:
 })();
 ```
 
-### Routing (`tools.html`)
+### Routing (tools.html)
 
 `tools.html` is a single-page shell. Panels are toggled via the `.hidden` CSS class.
 
@@ -306,13 +267,9 @@ Every tool follows the same IIFE structure:
 
 ## 📄 License
 
-MIT © 2024 FileForge
+MIT © 2026 Anfaal
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files, to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software.
 
 ---
 
