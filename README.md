@@ -139,8 +139,8 @@ CONVERTER/
 FileForge requires no build step, no npm, no dependencies to install.
 
 Option 1 — Open directly
-git clone https://github.com/your-username/fileforge.git
-cd fileforge
+git clone https://github.com/your-username/FileForge.git
+cd FileForge
 
 # macOS
 open index.html
