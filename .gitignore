@@ -1,0 +1,28 @@
+# ============================================
+#  FileForge — .gitignore
+# ============================================
+
+# macOS system files
+.DS_Store
+.DS_Store?
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Thumbnails
+ehthumbs.db
+Thumbs.db
+
+# Editor / IDE configs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs & temp files
+*.log
+*.tmp
+*.swp
+*.swo
