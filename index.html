@@ -1,462 +1,449 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FileForge — Private File Tools in Your Browser</title>
-    <meta name="description"
-        content="Convert, resize, compress and transform your files without uploading them. Privacy-first file processing directly in your browser.">
+    <title>FileForge — High-Performance Browser File & PDF Studio</title>
+    <meta name="description" content="Local, privacy-first Image and PDF processing directly in your browser. Convert any format, resize with custom dimensions (e.g. 215x100), compress, merge, edit, and annotate without uploading.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232563eb'/><path d='M30 70 L50 30 L70 70 Z' fill='white'/></svg>">
 </head>
 
 <body>
-    <!-- Navigation -->
+    <!-- Top Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo">
-                <span class="logo-icon">⚡</span>
-                <span class="logo-text">FileForge</span>
+            <a href="index.html" class="nav-brand">
+                <span class="brand-icon">F</span>
+                <span>FileForge</span>
             </a>
-            <div class="nav-links">
-                <a href="#tools" class="nav-link">Tools</a>
-                <a href="#privacy" class="nav-link">Privacy</a>
-            </div>
-            <div class="nav-actions">
-                <a href="tools.html" class="btn btn-primary btn-sm">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="3" width="7" height="7" />
-                        <rect x="14" y="3" width="7" height="7" />
-                        <rect x="14" y="14" width="7" height="7" />
-                        <rect x="3" y="14" width="7" height="7" />
-                    </svg>
-                    Open Tools
+
+            <div class="nav-tabs">
+                <a href="#image-suite" class="nav-tab-item">
+                    <span>Image Suite</span>
                 </a>
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle theme">
-                    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5" />
-                        <line x1="12" y1="1" x2="12" y2="3" />
-                        <line x1="12" y1="21" x2="12" y2="23" />
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                        <line x1="1" y1="12" x2="3" y2="12" />
-                        <line x1="21" y1="12" x2="23" y2="12" />
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                    </svg>
-                    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                    </svg>
+                <a href="#pdf-suite" class="nav-tab-item">
+                    <span>PDF Suite</span>
+                </a>
+                <a href="#privacy" class="nav-tab-item">
+                    <span>Architecture</span>
+                </a>
+            </div>
+
+            <div class="nav-actions">
+                <div class="privacy-badge">
+                    <span class="privacy-dot"></span>
+                    <span>100% In-Browser Execution</span>
+                </div>
+                <a href="tools.html" class="btn btn-primary btn-sm">Open Studio</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
                 </button>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <canvas class="hero-bg-canvas" id="heroBgCanvas"></canvas>
+    <header class="hero-section">
+        <div class="hero-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Local WebAssembly & Canvas Engine · No Network Uploads</span>
+        </div>
 
-        <!-- Orb decorations -->
-        <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
-        <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
-        <div class="hero-orb hero-orb-3" aria-hidden="true"></div>
+        <h1 class="hero-title">
+            Local File Processing.<br>
+            <span class="hero-title-gradient">Zero Cloud Uploads.</span>
+        </h1>
 
-        <div class="hero-container">
-            <div class="hero-badge">
-                <span class="badge-dot"></span>
-                100% Client-side · Zero uploads
-            </div>
-            <h1 class="hero-title">
-                Your Files.<br>
-                Your Browser.<br>
-                <span class="hero-highlight">Your Privacy.</span>
-            </h1>
-            <p class="hero-subtitle">
-                Convert, resize, compress and transform your files — entirely inside your browser.
-                <strong>Nothing ever leaves your device.</strong>
-            </p>
-            <div class="hero-actions">
-                <a href="tools.html" class="btn btn-primary btn-xl">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="3" width="7" height="7" />
-                        <rect x="14" y="3" width="7" height="7" />
-                        <rect x="14" y="14" width="7" height="7" />
-                        <rect x="3" y="14" width="7" height="7" />
-                    </svg>
-                    Explore All Tools
-                </a>
-                <a href="#privacy" class="btn btn-ghost-outline btn-xl">
-                    How it works
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="5" y1="12" x2="19" y2="12" />
-                        <polyline points="12 5 19 12 12 19" />
-                    </svg>
-                </a>
-            </div>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <span class="stat-number">7</span>
-                    <span class="stat-label">Tools</span>
+        <p class="hero-subtitle">
+            A comprehensive, client-side toolkit for <strong>Images</strong> and <strong>PDFs</strong>. Convert any format, resize with custom dimensions (e.g. 215 × 100), compress, merge, edit, and annotate files directly in your browser's local memory.
+        </p>
+
+        <!-- Quick Universal Dropzone -->
+        <div class="hero-quick-drop" id="quickDropZone" role="button" tabindex="0">
+            <input type="file" id="quickFileInput" class="hidden" multiple>
+            <div class="quick-drop-content">
+                <div class="quick-drop-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                 </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <span class="stat-number">0</span>
-                    <span class="stat-label">Uploads</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <span class="stat-number">100%</span>
-                    <span class="stat-label">Private</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <span class="stat-number">Free</span>
-                    <span class="stat-label">Forever</span>
-                </div>
+                <div class="quick-drop-title">Drop any image or PDF here to start</div>
+                <div class="quick-drop-sub">Drop an image for Conversion / Resizing / Compression · Drop a PDF for Merge / Compress / Edit</div>
             </div>
         </div>
 
-        <!-- Scroll indicator -->
-        <div class="scroll-indicator" aria-hidden="true">
-            <div class="scroll-dot"></div>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+            <a href="tools.html?tool=converter" class="btn btn-primary btn-lg">Open Image Studio</a>
+            <a href="tools.html?tool=pdfmerge" class="btn btn-pdf btn-lg">Open PDF Studio</a>
         </div>
-    </section>
+    </header>
 
-    <!-- Tools Grid -->
-    <section class="tools-section" id="tools">
-        <div class="section-container">
-            <div class="section-header">
-                <span class="section-tag">⚡ Toolbox</span>
-                <h2 class="section-title">Everything you need,<br>right in your browser</h2>
-                <p class="section-desc">No uploads. No accounts. No waiting. Pick a tool and start in seconds.</p>
+    <!-- SECTION 1: IMAGE SUITE -->
+    <section class="studio-section" id="image-suite">
+        <div class="section-header-wrap">
+            <div>
+                <h2 class="section-heading">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="color: var(--accent-primary);"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    <span>Image Suite</span>
+                </h2>
+                <p class="text-muted text-sm">Professional client-side raster and vector image manipulation.</p>
             </div>
-            <div class="tools-grid">
-                <!-- Image Converter -->
-                <div class="tool-card" data-tool="converter">
-                    <div class="tool-card-icon tool-icon-blue">
-                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                            <circle cx="8.5" cy="8.5" r="1.5" />
-                            <polyline points="21 15 16 10 5 21" />
-                        </svg>
-                    </div>
-                    <div class="tool-card-body">
-                        <h3 class="tool-card-title">Image Converter</h3>
-                        <p class="tool-card-desc">Convert between PNG, JPG, WEBP, GIF and BMP formats instantly. Choose
-                            output quality.</p>
-                    </div>
-                    <div class="tool-card-footer">
-                        <div class="tool-card-formats">
-                            <span class="format-tag">PNG</span>
-                            <span class="format-tag">JPG</span>
-                            <span class="format-tag">WEBP</span>
-                            <span class="format-tag">GIF</span>
-                            <span class="format-tag">BMP</span>
-                        </div>
-                        <a href="tools.html?tool=converter" class="btn btn-card">
-                            Open
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="5" y1="12" x2="19" y2="12" />
-                                <polyline points="12 5 19 12 12 19" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
+            <a href="tools.html?tool=converter" class="btn btn-outline btn-sm">Launch Image Studio →</a>
+        </div>
 
-                <!-- Image Resizer -->
-                <div class="tool-card" data-tool="resizer">
-                    <div class="tool-card-icon tool-icon-purple">
-                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="15 3 21 3 21 9" />
-                            <polyline points="9 21 3 21 3 15" />
-                            <line x1="21" y1="3" x2="14" y2="10" />
-                            <line x1="3" y1="21" x2="10" y2="14" />
-                        </svg>
-                    </div>
-                    <div class="tool-card-body">
-                        <h3 class="tool-card-title">Image Resizer</h3>
-                        <p class="tool-card-desc">Resize images with custom dimensions, aspect ratio lock and popular
-                            social media presets.</p>
-                    </div>
-                    <div class="tool-card-footer">
-                        <div class="tool-card-formats">
-                            <span class="format-tag">Custom Size</span>
-                            <span class="format-tag">Presets</span>
-                            <span class="format-tag">Aspect Lock</span>
+        <div class="tools-grid">
+            <!-- Tool 1: Converter -->
+            <a href="tools.html?tool=converter" class="tool-card">
+                <div>
+                    <div class="tool-card-top">
+                        <div class="tool-card-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
                         </div>
-                        <a href="tools.html?tool=resizer" class="btn btn-card">
-                            Open
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="5" y1="12" x2="19" y2="12" />
-                                <polyline points="12 5 19 12 12 19" />
-                            </svg>
-                        </a>
+                        <span class="badge badge-info">Batch Enabled</span>
                     </div>
+                    <div class="tool-card-title">Image Converter</div>
+                    <div class="tool-card-desc">Convert from any format to any format: PNG, JPG, JPEG, WEBP, GIF, BMP, ICO, and SVG with background fill options.</div>
                 </div>
+                <div class="tool-card-footer">
+                    <span class="format-tags">PNG · JPG · WEBP · ICO · SVG</span>
+                    <span>Convert →</span>
+                </div>
+            </a>
 
-                <!-- Image Compressor -->
-                <div class="tool-card" data-tool="compressor">
-                    <div class="tool-card-icon tool-icon-green">
-                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4" />
-                            <polyline points="14 2 14 8 20 8" />
-                            <path d="M2 15h10" />
-                            <path d="m5 12-3 3 3 3" />
-                        </svg>
-                    </div>
-                    <div class="tool-card-body">
-                        <h3 class="tool-card-title">Image Compressor</h3>
-                        <p class="tool-card-desc">Reduce image file size while maintaining quality. Compare before and
-                            after side-by-side.</p>
-                    </div>
-                    <div class="tool-card-footer">
-                        <div class="tool-card-formats">
-                            <span class="format-tag">Quality Slider</span>
-                            <span class="format-tag">Side-by-side</span>
+            <!-- Tool 2: Resizer -->
+            <a href="tools.html?tool=resizer" class="tool-card">
+                <div>
+                    <div class="tool-card-top">
+                        <div class="tool-card-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                         </div>
-                        <a href="tools.html?tool=compressor" class="btn btn-card">
-                            Open
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="5" y1="12" x2="19" y2="12" />
-                                <polyline points="12 5 19 12 12 19" />
-                            </svg>
-                        </a>
+                        <span class="badge badge-neutral">Arbitrary Dimensions</span>
                     </div>
+                    <div class="tool-card-title">Image Resizer</div>
+                    <div class="tool-card-desc">Set custom changeable dimensions (e.g. 215 × 100), lock or unlock aspect ratio, stretch or crop to fill, and scale by percentage.</div>
                 </div>
+                <div class="tool-card-footer">
+                    <span class="format-tags">215×100 · 16:9 · 4:3 · Presets</span>
+                    <span>Resize →</span>
+                </div>
+            </a>
 
-                <!-- Image to PDF -->
-                <div class="tool-card" data-tool="pdf">
-                    <div class="tool-card-icon tool-icon-red">
-                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                            <polyline points="14 2 14 8 20 8" />
-                            <line x1="16" y1="13" x2="8" y2="13" />
-                            <line x1="16" y1="17" x2="8" y2="17" />
-                        </svg>
-                    </div>
-                    <div class="tool-card-body">
-                        <h3 class="tool-card-title">Image to PDF</h3>
-                        <p class="tool-card-desc">Combine multiple images into a single downloadable PDF. Choose
-                            portrait or landscape.</p>
-                    </div>
-                    <div class="tool-card-footer">
-                        <div class="tool-card-formats">
-                            <span class="format-tag">Multi-image</span>
-                            <span class="format-tag">Orientation</span>
+            <!-- Tool 3: Compressor -->
+            <a href="tools.html?tool=compressor" class="tool-card">
+                <div>
+                    <div class="tool-card-top">
+                        <div class="tool-card-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4"/><polyline points="14 2 14 8 20 8"/></svg>
                         </div>
-                        <a href="tools.html?tool=pdf" class="btn btn-card">
-                            Open
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="5" y1="12" x2="19" y2="12" />
-                                <polyline points="12 5 19 12 12 19" />
-                            </svg>
-                        </a>
+                        <span class="badge badge-success">Up to -90%</span>
                     </div>
+                    <div class="tool-card-title">Image Compressor</div>
+                    <div class="tool-card-desc">Lossy and lossless visual compression with live quality slider, side-by-side comparison, and format re-encoding.</div>
                 </div>
+                <div class="tool-card-footer">
+                    <span class="format-tags">WebP · JPEG · PNG</span>
+                    <span>Compress →</span>
+                </div>
+            </a>
 
-                <!-- Image Cropper -->
-                <div class="tool-card" data-tool="cropper">
-                    <div class="tool-card-icon tool-icon-orange">
-                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M6.13 1L6 16a2 2 0 0 0 2 2h15" />
-                            <path d="M1 6.13L16 6a2 2 0 0 1 2 2v15" />
-                        </svg>
-                    </div>
-                    <div class="tool-card-body">
-                        <h3 class="tool-card-title">Image Cropper</h3>
-                        <p class="tool-card-desc">Crop with free or fixed aspect ratios. Rotate, zoom and fine-tune your
-                            composition.</p>
-                    </div>
-                    <div class="tool-card-footer">
-                        <div class="tool-card-formats">
-                            <span class="format-tag">Aspect Ratios</span>
-                            <span class="format-tag">Rotate</span>
-                            <span class="format-tag">Zoom</span>
+            <!-- Tool 4: Size Reducer -->
+            <a href="tools.html?tool=reducer" class="tool-card">
+                <div>
+                    <div class="tool-card-top">
+                        <div class="tool-card-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                         </div>
-                        <a href="tools.html?tool=cropper" class="btn btn-card">
-                            Open
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="5" y1="12" x2="19" y2="12" />
-                                <polyline points="12 5 19 12 12 19" />
-                            </svg>
-                        </a>
+                        <span class="badge badge-neutral">Target Sizing</span>
                     </div>
+                    <div class="tool-card-title">Image Size Reducer</div>
+                    <div class="tool-card-desc">Specify an exact file size target in KB (e.g. 50 KB, 100 KB, 200 KB) with intelligent binary search quality optimization.</div>
                 </div>
+                <div class="tool-card-footer">
+                    <span class="format-tags">Exact KB Targets</span>
+                    <span>Reduce →</span>
+                </div>
+            </a>
 
-                <!-- File Size Reducer -->
-                <div class="tool-card" data-tool="reducer">
-                    <div class="tool-card-icon tool-icon-teal">
-                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="4 14 10 14 10 20" />
-                            <polyline points="20 10 14 10 14 4" />
-                            <line x1="14" y1="10" x2="21" y2="3" />
-                            <line x1="3" y1="21" x2="10" y2="14" />
-                        </svg>
-                    </div>
-                    <div class="tool-card-body">
-                        <h3 class="tool-card-title">File Size Reducer</h3>
-                        <p class="tool-card-desc">Reduce file sizes with compression controls. See estimated savings
-                            before you download.</p>
-                    </div>
-                    <div class="tool-card-footer">
-                        <div class="tool-card-formats">
-                            <span class="format-tag">PNG · JPG · WEBP</span>
-                            <span class="format-tag">Live Estimate</span>
+            <!-- Tool 5: Cropper -->
+            <a href="tools.html?tool=cropper" class="tool-card">
+                <div>
+                    <div class="tool-card-top">
+                        <div class="tool-card-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6.13 1L6 16a2 2 0 0 0 2 2h15"/><path d="M1 6.13L16 6a2 2 0 0 1 2 2v15"/></svg>
                         </div>
-                        <a href="tools.html?tool=reducer" class="btn btn-card">
-                            Open
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="5" y1="12" x2="19" y2="12" />
-                                <polyline points="12 5 19 12 12 19" />
-                            </svg>
-                        </a>
+                        <span class="badge badge-neutral">Canvas Crop</span>
                     </div>
+                    <div class="tool-card-title">Image Cropper</div>
+                    <div class="tool-card-desc">Interactive canvas crop box with preset ratios (1:1, 16:9, 4:3, 215:100), 90° rotation, and zoom.</div>
                 </div>
+                <div class="tool-card-footer">
+                    <span class="format-tags">Freeform · Locked Ratios</span>
+                    <span>Crop →</span>
+                </div>
+            </a>
 
-                <!-- File Information -->
-                <div class="tool-card" data-tool="fileinfo">
-                    <div class="tool-card-icon tool-icon-slate">
-                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10" />
-                            <line x1="12" y1="16" x2="12" y2="12" />
-                            <line x1="12" y1="8" x2="12.01" y2="8" />
-                        </svg>
-                    </div>
-                    <div class="tool-card-body">
-                        <h3 class="tool-card-title">File Information</h3>
-                        <p class="tool-card-desc">Inspect any file. Get name, MIME type, size, dimensions, and last
-                            modified date instantly.</p>
-                    </div>
-                    <div class="tool-card-footer">
-                        <div class="tool-card-formats">
-                            <span class="format-tag">Any File</span>
-                            <span class="format-tag">Metadata</span>
-                            <span class="format-tag">Copy Info</span>
+            <!-- Tool 6: Image to PDF -->
+            <a href="tools.html?tool=imagepdf" class="tool-card">
+                <div>
+                    <div class="tool-card-top">
+                        <div class="tool-card-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
                         </div>
-                        <a href="tools.html?tool=fileinfo" class="btn btn-card">
-                            Open
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="5" y1="12" x2="19" y2="12" />
-                                <polyline points="12 5 19 12 12 19" />
-                            </svg>
-                        </a>
+                        <span class="badge badge-neutral">Multi-Image</span>
                     </div>
+                    <div class="tool-card-title">Image to PDF</div>
+                    <div class="tool-card-desc">Combine multiple photos into a single PDF document. Customize paper size (A4, Letter, Fit), orientation, and margins.</div>
                 </div>
-            </div>
+                <div class="tool-card-footer">
+                    <span class="format-tags">A4 · US Letter · Reorder</span>
+                    <span>Compile →</span>
+                </div>
+            </a>
+
+            <!-- Tool 7: EXIF Inspector -->
+            <a href="tools.html?tool=fileinfo" class="tool-card">
+                <div>
+                    <div class="tool-card-top">
+                        <div class="tool-card-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                        </div>
+                        <span class="badge badge-success">Privacy Scrubber</span>
+                    </div>
+                    <div class="tool-card-title">Metadata & EXIF Cleaner</div>
+                    <div class="tool-card-desc">Inspect dimensions, MIME headers, and aspect ratios. Strip GPS coordinates, camera serials, and EXIF tags before sharing.</div>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="format-tags">EXIF · GPS · Metadata Strip</span>
+                    <span>Inspect →</span>
+                </div>
+            </a>
         </div>
     </section>
 
-    <!-- Privacy Section -->
-    <section class="privacy-section" id="privacy">
-        <div class="section-container">
-            <div class="privacy-card">
-                <div class="privacy-icon">
-                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                    </svg>
-                </div>
-                <div class="privacy-content">
-                    <div class="privacy-badge">
-                        <span class="badge-dot"></span>
-                        100% Client-side processing
-                    </div>
-                    <h2 class="privacy-title">Your files stay on your device.</h2>
-                    <p class="privacy-desc">
-                        FileForge uses modern browser APIs to process files directly on your machine.
-                        Your files are never sent to any server — complete privacy, guaranteed.
-                    </p>
-                    <div class="privacy-features">
-                        <div class="privacy-feature">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg>
-                            <span>No server uploads, ever</span>
-                        </div>
-                        <div class="privacy-feature">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg>
-                            <span>No tracking or analytics</span>
-                        </div>
-                        <div class="privacy-feature">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg>
-                            <span>No account required</span>
-                        </div>
-                        <div class="privacy-feature">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg>
-                            <span>Works offline too</span>
-                        </div>
-                    </div>
-                </div>
+    <!-- SECTION 2: PDF SUITE -->
+    <section class="studio-section" id="pdf-suite">
+        <div class="section-header-wrap">
+            <div>
+                <h2 class="section-heading">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="color: var(--accent-pdf);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/></svg>
+                    <span>PDF Suite</span>
+                </h2>
+                <p class="text-muted text-sm">Comprehensive client-side PDF document manipulation powered by pdf-lib and pdf.js.</p>
             </div>
+            <a href="tools.html?tool=pdfmerge" class="btn btn-outline btn-sm">Launch PDF Studio →</a>
+        </div>
+
+        <div class="tools-grid">
+            <!-- Tool 1: PDF Merger -->
+            <a href="tools.html?tool=pdfmerge" class="tool-card">
+                <div>
+                    <div class="tool-card-top">
+                        <div class="tool-card-icon pdf-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/></svg>
+                        </div>
+                        <span class="badge badge-neutral">Multi-PDF</span>
+                    </div>
+                    <div class="tool-card-title">PDF Merger</div>
+                    <div class="tool-card-desc">Combine multiple PDF documents into a single file with custom page sequences and drag-and-drop ordering.</div>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="format-tags">Fast Assembly · Reorder</span>
+                    <span>Merge →</span>
+                </div>
+            </a>
+
+            <!-- Tool 2: PDF Compressor -->
+            <a href="tools.html?tool=pdfcompress" class="tool-card">
+                <div>
+                    <div class="tool-card-top">
+                        <div class="tool-card-icon pdf-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                        </div>
+                        <span class="badge badge-success">Optimized Size</span>
+                    </div>
+                    <div class="tool-card-title">PDF Compressor & Size Reducer</div>
+                    <div class="tool-card-desc">Reduce large PDF file sizes for emails and web portals using DPI downsampling and image stream optimization.</div>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="format-tags">100 / 150 / 200 DPI Profiles</span>
+                    <span>Compress →</span>
+                </div>
+            </a>
+
+            <!-- Tool 3: PDF Editor -->
+            <a href="tools.html?tool=pdfedit" class="tool-card">
+                <div>
+                    <div class="tool-card-top">
+                        <div class="tool-card-icon pdf-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                        </div>
+                        <span class="badge badge-info">Annotate</span>
+                    </div>
+                    <div class="tool-card-title">PDF Editor & Annotator</div>
+                    <div class="tool-card-desc">Add diagonal watermarks, page numbers, text stamps, and draw signatures directly onto PDF pages with preview.</div>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="format-tags">Watermark · Numbers · Signature</span>
+                    <span>Edit →</span>
+                </div>
+            </a>
+
+            <!-- Tool 4: PDF Splitter -->
+            <a href="tools.html?tool=pdfsplit" class="tool-card">
+                <div>
+                    <div class="tool-card-top">
+                        <div class="tool-card-icon pdf-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+                        </div>
+                        <span class="badge badge-neutral">Thumbnail Grid</span>
+                    </div>
+                    <div class="tool-card-title">PDF Splitter & Page Extractor</div>
+                    <div class="tool-card-desc">Select pages visually to extract into a new PDF, delete specific pages, or split every page into separate files in a ZIP.</div>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="format-tags">Extract · Delete · Split ZIP</span>
+                    <span>Split →</span>
+                </div>
+            </a>
+
+            <!-- Tool 5: PDF to Images -->
+            <a href="tools.html?tool=pdftoimg" class="tool-card">
+                <div>
+                    <div class="tool-card-top">
+                        <div class="tool-card-icon pdf-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><circle cx="10" cy="13" r="1.5"/><polyline points="16 17 13 14 10 17"/></svg>
+                        </div>
+                        <span class="badge badge-info">Retina 300 DPI</span>
+                    </div>
+                    <div class="tool-card-title">PDF to Images Converter</div>
+                    <div class="tool-card-desc">Render each page of a PDF document into crisp PNG or JPEG images. Download individual pages or all pages as a ZIP.</div>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="format-tags">PNG · JPEG · ZIP Export</span>
+                    <span>Export →</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- SECTION 3: PRIVACY & ARCHITECTURE -->
+    <section class="studio-section" id="privacy">
+        <div class="section-header-wrap">
+            <div>
+                <h2 class="section-heading">Privacy & Technical Architecture</h2>
+                <p class="text-muted text-sm">How FileForge protects your files by avoiding cloud infrastructure entirely.</p>
+            </div>
+        </div>
+
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 32px; overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.92rem;">
+                <thead>
+                    <tr style="border-bottom: 2px solid var(--border-strong); text-align: left;">
+                        <th style="padding: 12px 16px;">Dimension</th>
+                        <th style="padding: 12px 16px;">FileForge</th>
+                        <th style="padding: 12px 16px; color: var(--text-muted);">Standard Cloud Converters</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid var(--border-subtle);">
+                        <td style="padding: 12px 16px; font-weight: 600;">Data Transit</td>
+                        <td style="padding: 12px 16px; color: var(--success); font-weight: 600;">None · Never leaves your browser memory</td>
+                        <td style="padding: 12px 16px; color: var(--text-muted);">Uploaded over HTTP to remote servers</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border-subtle);">
+                        <td style="padding: 12px 16px; font-weight: 600;">Cloud Storage</td>
+                        <td style="padding: 12px 16px; color: var(--success); font-weight: 600;">Zero bytes stored on any server</td>
+                        <td style="padding: 12px 16px; color: var(--text-muted);">Stored on cloud buckets until cron cleanup</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border-subtle);">
+                        <td style="padding: 12px 16px; font-weight: 600;">Execution Engine</td>
+                        <td style="padding: 12px 16px; color: var(--accent-primary); font-weight: 600;">HTML5 Canvas, FileReader, pdf-lib, pdf.js</td>
+                        <td style="padding: 12px 16px; color: var(--text-muted);">Server-side ImageMagick, Ghostscript</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border-subtle);">
+                        <td style="padding: 12px 16px; font-weight: 600;">Telemetry & Tracking</td>
+                        <td style="padding: 12px 16px; color: var(--success); font-weight: 600;">Zero trackers, zero analytics, zero cookies</td>
+                        <td style="padding: 12px 16px; color: var(--text-muted);">Google Analytics, Meta Pixel, AdSense</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px 16px; font-weight: 600;">Memory Management</td>
+                        <td style="padding: 12px 16px; color: var(--success); font-weight: 600;">Immediate URL.revokeObjectURL on blobs</td>
+                        <td style="padding: 12px 16px; color: var(--text-muted);">N/A</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <a href="index.html" class="nav-logo">
-                        <span class="logo-icon">⚡</span>
-                        <span class="logo-text">FileForge</span>
-                    </a>
-                    <p class="footer-tagline">Simple tools. Private processing.</p>
-                </div>
-                <div class="footer-links">
-                    <a href="tools.html">All Tools</a>
-                    <a href="#privacy">Privacy</a>
-                    <a href="#tools">Features</a>
-                </div>
+    <footer style="border-top: 1px solid var(--border-subtle); padding: 40px 24px; background: var(--bg-surface); text-align: center; font-size: 0.85rem; color: var(--text-muted);">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+            <div style="display: flex; align-items: center; gap: 8px; font-weight: 600; color: var(--text-main);">
+                <span class="brand-icon" style="width: 22px; height: 22px; font-size: 0.75rem;">F</span>
+                <span>FileForge</span>
             </div>
-            <div class="footer-bottom">
-                <p>Made for the web. Built around privacy.</p>
-                <p class="footer-copy">FileForge — Simple tools. Private processing.</p>
+            <div>MIT License © 2026 Anfaal · Built for privacy and speed.</div>
+            <div style="display: flex; gap: 16px;">
+                <a href="tools.html?tool=converter">Image Tools</a>
+                <a href="tools.html?tool=pdfmerge">PDF Tools</a>
+                <a href="https://github.com/anfaalresearch/FileForge" target="_blank" rel="noopener">GitHub</a>
             </div>
         </div>
     </footer>
 
-    <!-- Toast Container -->
-    <div class="toast-container" id="toastContainer"></div>
+    <script>
+        // Landing page quick dropzone routing
+        const dropZone = document.getElementById('quickDropZone');
+        const fileInput = document.getElementById('quickFileInput');
+        const html = document.documentElement;
+        const themeToggle = document.getElementById('themeToggle');
 
-    <script src="js/utils.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/scene.js"></script>
+        // Theme toggle
+        function initTheme() {
+            const saved = localStorage.getItem('ff-theme') || 'dark';
+            html.setAttribute('data-theme', saved);
+        }
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('ff-theme', next);
+            });
+        }
+        initTheme();
+
+        // Dropzone interactions
+        if (dropZone && fileInput) {
+            dropZone.addEventListener('click', () => fileInput.click());
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('drag-over');
+            });
+            dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('drag-over');
+                const files = e.dataTransfer.files;
+                if (files && files.length > 0) routeFile(files[0]);
+            });
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files && e.target.files.length > 0) routeFile(e.target.files[0]);
+            });
+        }
+
+        function routeFile(file) {
+            if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
+                window.location.href = 'tools.html?tool=pdfmerge';
+            } else {
+                window.location.href = 'tools.html?tool=converter';
+            }
+        }
+    </script>
 </body>
 
 </html>

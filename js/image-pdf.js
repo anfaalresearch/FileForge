@@ -1,26 +1,29 @@
-/* ==========================================
-   FileForge — Image to PDF
-   ========================================== */
+/* ==========================================================================
+   FileForge — Image to PDF Converter
+   Combines multiple images into a single PDF document with custom page setup.
+   ========================================================================== */
 
 (function () {
     'use strict';
 
     const $ = (sel) => document.querySelector(sel);
 
-    const upload     = $('#pdfUpload');
-    const fileInput  = $('#pdfFileInput');
-    const fileList   = $('#pdfFileList');
-    const listItems  = $('#pdfListItems');
-    const countSpan  = $('#pdfCount');
+    const upload = $('#pdfUpload');
+    const fileInput = $('#pdfFileInput');
+    const fileList = $('#pdfFileList');
+    const listItems = $('#pdfListItems');
+    const countSpan = $('#pdfCount');
     const addMoreBtn = $('#pdfAddMore');
-    const addInput   = $('#pdfAddInput');
+    const addInput = $('#pdfAddInput');
+    const pageSizeSelect = $('#pdfPageSize');
+    const marginSelect = $('#pdfMargin');
     const generateBtn = $('#pdfGenerate');
     const processing = $('#pdfProcessing');
-    const result     = $('#pdfResult');
-    const pdfPages   = $('#pdfPages');
-    const pdfSize    = $('#pdfSize');
+    const result = $('#pdfResult');
+    const pdfPages = $('#pdfPages');
+    const pdfSize = $('#pdfSize');
     const downloadBtn = $('#pdfDownload');
-    const resetBtn   = $('#pdfReset');
+    const resetBtn = $('#pdfReset');
 
     let files = [];
     let pdfBlob = null;
@@ -41,17 +44,16 @@
     if (downloadBtn) {
         downloadBtn.addEventListener('click', () => {
             if (!pdfBlob) return;
-            FF.downloadBlob(pdfBlob, 'fileforge-output.pdf');
+            FF.downloadBlob(pdfBlob, 'images_document.pdf');
             FF.toast('PDF downloaded!', 'success');
         });
     }
     if (resetBtn) resetBtn.addEventListener('click', resetTool);
 
     function handleFiles(fileArr) {
-        const imgs = (Array.isArray(fileArr) ? fileArr : [fileArr])
-            .filter(f => f.type.startsWith('image/'));
+        const imgs = (Array.isArray(fileArr) ? fileArr : [fileArr]).filter(f => f.type.startsWith('image/'));
         if (imgs.length === 0) {
-            FF.toast('Please upload image files (PNG, JPG, WEBP).', 'error');
+            FF.toast('Please upload image files (PNG, JPG, WEBP, etc.).', 'error');
             return;
         }
         files = files.concat(imgs);
@@ -63,27 +65,51 @@
     function renderFileList() {
         if (!listItems) return;
         listItems.innerHTML = '';
-        countSpan.textContent = files.length;
+        if (countSpan) countSpan.textContent = files.length;
+
         files.forEach((f, i) => {
             const item = document.createElement('div');
             item.className = 'file-list-item';
             const safeName = f.name.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-            item.innerHTML =
-                `<span class="file-list-name">${safeName}</span>` +
-                `<span class="file-list-size">${FF.formatFileSize(f.size)}</span>` +
-                `<button class="file-list-remove" data-index="${i}" aria-label="Remove file">` +
-                  `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>` +
-                `</button>`;
-            item.querySelector('.file-list-remove').addEventListener('click', () => {
-                files.splice(i, 1);
-                if (files.length === 0) {
-                    FF.hide(fileList);
-                    FF.show(upload);
-                } else {
+            item.innerHTML = `
+                <div class="file-list-meta">
+                    <span class="file-list-index">${i + 1}</span>
+                    <span class="file-list-name">${safeName}</span>
+                    <span class="file-list-size">${FF.formatFileSize(f.size)}</span>
+                </div>
+                <div class="file-list-actions">
+                    <button type="button" class="btn btn-icon btn-sm" data-action="up" data-idx="${i}" ${i === 0 ? 'disabled' : ''} title="Move Up">↑</button>
+                    <button type="button" class="btn btn-icon btn-sm" data-action="down" data-idx="${i}" ${i === files.length - 1 ? 'disabled' : ''} title="Move Down">↓</button>
+                    <button type="button" class="btn btn-icon btn-sm text-error" data-action="del" data-idx="${i}" title="Remove">✕</button>
+                </div>
+            `;
+            listItems.appendChild(item);
+        });
+
+        listItems.querySelectorAll('[data-action]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const act = btn.getAttribute('data-action');
+                const idx = parseInt(btn.getAttribute('data-idx'), 10);
+                if (act === 'up' && idx > 0) {
+                    const temp = files[idx - 1];
+                    files[idx - 1] = files[idx];
+                    files[idx] = temp;
                     renderFileList();
+                } else if (act === 'down' && idx < files.length - 1) {
+                    const temp = files[idx + 1];
+                    files[idx + 1] = files[idx];
+                    files[idx] = temp;
+                    renderFileList();
+                } else if (act === 'del') {
+                    files.splice(idx, 1);
+                    if (files.length === 0) {
+                        FF.hide(fileList);
+                        FF.show(upload);
+                    } else {
+                        renderFileList();
+                    }
                 }
             });
-            listItems.appendChild(item);
         });
     }
 
@@ -94,76 +120,100 @@
         }
 
         if (typeof window.jspdf === 'undefined' && typeof window.jsPDF === 'undefined') {
-            FF.toast('PDF library is still loading — please try again in a moment.', 'warning');
+            FF.toast('PDF library is loading — please try again in a moment.', 'warning');
             return;
         }
 
-        const orientationValue = document.querySelector('input[name="pdfOrientation"]:checked');
-        const orientation = orientationValue ? orientationValue.value : 'portrait';
-        const isLandscape = orientation === 'landscape';
+        const orientationRadio = document.querySelector('input[name="pdfOrientation"]:checked');
+        const orientation = orientationRadio ? orientationRadio.value : 'portrait';
+        const pageSize = pageSizeSelect ? pageSizeSelect.value : 'a4';
+        const marginVal = parseInt(marginSelect ? marginSelect.value : '10', 10);
 
         FF.hide(fileList);
         FF.show(processing);
 
         try {
             const { jsPDF } = window.jspdf || window;
-            const pdf = new jsPDF({ orientation, unit: 'px', hotfixes: ['px_scaling'] });
+            const pdf = new jsPDF({
+                orientation: orientation === 'auto' ? 'portrait' : orientation,
+                unit: 'pt',
+                format: pageSize === 'fit' ? 'a4' : pageSize
+            });
+
             let firstPage = true;
 
-            for (const file of files) {
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
                 const img = await FF.loadImage(file);
                 const imgW = img.naturalWidth;
                 const imgH = img.naturalHeight;
 
-                // A4 in px at 96dpi: 794 × 1123 (portrait)
-                const pageW = isLandscape ? 1123 : 794;
-                const pageH = isLandscape ? 794  : 1123;
-                const scale = Math.min(pageW / imgW, pageH / imgH);
-                const drawW = imgW * scale;
-                const drawH = imgH * scale;
-                const offsetX = (pageW - drawW) / 2;
-                const offsetY = (pageH - drawH) / 2;
+                let pageW, pageH;
+
+                if (pageSize === 'fit') {
+                    pageW = imgW + (marginVal * 2);
+                    pageH = imgH + (marginVal * 2);
+                } else if (pageSize === 'letter') {
+                    pageW = 612; // US Letter pt
+                    pageH = 792;
+                } else {
+                    pageW = 595.28; // A4 pt
+                    pageH = 841.89;
+                }
+
+                if (orientation === 'landscape' && pageSize !== 'fit') {
+                    const tmp = pageW;
+                    pageW = pageH;
+                    pageH = tmp;
+                } else if (orientation === 'auto' && pageSize !== 'fit') {
+                    if (imgW > imgH && pageW < pageH) {
+                        const tmp = pageW;
+                        pageW = pageH;
+                        pageH = tmp;
+                    }
+                }
 
                 if (!firstPage) {
-                    pdf.addPage([pageW, pageH], orientation);
+                    pdf.addPage([pageW, pageH], pageW > pageH ? 'landscape' : 'portrait');
                 } else {
-                    pdf.internal.pageSize.width  = pageW;
+                    pdf.internal.pageSize.width = pageW;
                     pdf.internal.pageSize.height = pageH;
                 }
 
-                const dataUrl = await fileToDataURL(file);
-                const ext = FF.getFileExtension(file.name).toUpperCase();
-                const pdfImgFmt = ext === 'JPG' ? 'JPEG' : (ext === 'WEBP' ? 'WEBP' : ext);
+                const availW = pageW - (marginVal * 2);
+                const availH = pageH - (marginVal * 2);
 
-                pdf.addImage(dataUrl, pdfImgFmt || 'PNG', offsetX, offsetY, drawW, drawH);
+                const scale = Math.min(availW / imgW, availH / imgH);
+                const drawW = imgW * scale;
+                const drawH = imgH * scale;
+                const dx = marginVal + (availW - drawW) / 2;
+                const dy = marginVal + (availH - drawH) / 2;
+
+                const canvas = document.createElement('canvas');
+                canvas.width = imgW;
+                canvas.height = imgH;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                const dataUrl = canvas.toDataURL('image/jpeg', 0.90);
+
+                pdf.addImage(dataUrl, 'JPEG', dx, dy, drawW, drawH);
                 firstPage = false;
             }
 
-            const pdfOutput = pdf.output('blob');
-            pdfBlob = pdfOutput;
+            pdfBlob = pdf.output('blob');
 
             FF.hide(processing);
             FF.show(result);
 
-            pdfPages.textContent = files.length;
-            pdfSize.textContent  = FF.formatFileSize(pdfBlob.size);
+            if (pdfPages) pdfPages.textContent = files.length;
+            if (pdfSize) pdfSize.textContent = FF.formatFileSize(pdfBlob.size);
 
-            FF.toast('PDF generated!', 'success');
+            FF.toast('PDF created successfully!', 'success');
         } catch (err) {
             FF.hide(processing);
             FF.show(fileList);
-            FF.toast(err.message || 'PDF generation failed.', 'error');
-            console.error(err);
+            FF.toast(err.message || 'PDF compilation failed.', 'error');
         }
-    }
-
-    function fileToDataURL(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = e => resolve(e.target.result);
-            reader.onerror = () => reject(new Error('Could not read file'));
-            reader.readAsDataURL(file);
-        });
     }
 
     function resetTool() {
@@ -178,5 +228,4 @@
         FF.hide(result);
         FF.show(upload);
     }
-
 })();

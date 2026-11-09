@@ -2,16 +2,15 @@
 
 # ⚡ FileForge
 
-**Private, browser-based file tools. No uploads. No accounts. No servers.**
+**High-performance, privacy-first Image & PDF Studio in your browser.**  
+**No server uploads. No accounts. Zero tracking.**
 
-[🌐 **Live Demo**](https://anfaalresearch.github.io/FileForge/)
+[🌐 **Launch Live Studio**](https://anfaalresearch.github.io/FileForge/)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-6366f1.svg)](#-license)
-[![HTML](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
-[![CSS](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
-[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![No Backend](https://img.shields.io/badge/Backend-None-10b981)](#-privacy)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-818cf8.svg)](#-contributing)
+[![License: MIT](https://img.shields.io/badge/License-MIT-2563eb.svg)](#-license)
+[![Zero Backend](https://img.shields.io/badge/Backend-None-10b981)](#-privacy--architecture)
+[![Client-Side PDF](https://img.shields.io/badge/PDF_Engine-pdf--lib_%2B_pdf.js-e11d48)](#-pdf-suite)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-3b82f6.svg)](#-contributing)
 
 </div>
 
@@ -19,76 +18,74 @@
 
 ## 📖 Table of Contents
 
-- [What is FileForge?](#-what-is-fileforge)
-- [Live Demo](#-live-demo)
-- [Tools](#-tools)
-- [Privacy](#-privacy)
+- [Overview](#-overview)
+- [Image Suite](#-image-suite)
+- [PDF Suite](#-pdf-suite)
+- [Privacy & Architecture](#-privacy--architecture)
 - [Tech Stack](#-tech-stack)
 - [Project Structure](#-project-structure)
 - [Getting Started](#-getting-started)
-- [Architecture](#-architecture)
-- [Security Audit](#-security-audit)
 - [Browser Support](#-browser-support)
-- [Contributing](#-contributing)
 - [License](#-license)
 
 ---
 
-## 🔍 What is FileForge?
+## 🔍 Overview
 
-FileForge is a **100% client-side** file processing toolkit that runs entirely in your browser. It converts, resizes, compresses, crops, and inspects files using modern Web APIs — **your files never leave your device**.
+**FileForge** is an open-source, 100% in-browser utility studio designed for speed, craft, and total privacy. It replaces slow, ad-ridden cloud conversion sites with high-performance Web APIs. 
 
-There is no backend, no cloud storage, no analytics, and no accounts. Open the page, use a tool, download your result.
-
-### 🌐 Live Demo
-
-Try FileForge directly in your browser:
-
-**[https://anfaalresearch.github.io/FileForge/](https://anfaalresearch.github.io/FileForge/)**
+Every operation — from resizing an image to exact arbitrary dimensions (e.g. `215 × 100`), converting between PNG/JPG/WEBP/ICO/SVG formats, to merging, compressing, annotating, and splitting PDFs — executes locally in browser memory. **Nothing is ever sent over the network.**
 
 ---
 
-## 🧰 Tools
+## 🖼️ Image Suite
 
-| Tool | Description | Formats |
+| Tool | Core Features & Capabilities | Supported Formats |
 |---|---|---|
-| **Image Converter** | Convert images between formats | PNG · JPG · WEBP · GIF · BMP |
-| **Image Resizer** | Resize with custom dimensions or presets | Any image |
-| **Image Compressor** | Reduce file size with a quality slider + before/after compare | PNG · JPG · WEBP |
-| **Image Cropper** | Crop with free or locked aspect ratios, rotate & zoom | Any image |
-| **Image to PDF** | Combine multiple images into a single PDF | Any image → PDF |
-| **File Size Reducer** | Compress with live size estimation | PNG · JPG · WEBP |
-| **File Information** | Inspect metadata — name, MIME, size, dimensions | Any file |
+| **Image Converter** | Convert any format to any format with batch support, quality control, and background alpha fill. | PNG · JPG · JPEG · WEBP · GIF · BMP · ICO · SVG |
+| **Image Resizer** | Set custom changeable pixel dimensions (e.g. `215 × 100`), lock/unlock aspect ratio, scale by percentage (10%–300%), and standard/social presets. | All browser-supported images |
+| **Image Compressor** | Lossy/lossless visual compression with real-time before/after comparison, format re-encoding, and byte savings. | PNG · JPG · WEBP |
+| **Image Size Reducer** | Specify an exact target file size in KB or MB (e.g. 50 KB, 100 KB, 200 KB) with automated binary search quality optimization. | PNG · JPG · WEBP |
+| **Image Cropper** | Interactive canvas cropping with presets (1:1, 16:9, 4:3, 9:16, 215:100), 90° rotation, and zoom. | All browser-supported images |
+| **Image to PDF** | Compile multiple images into a single PDF with custom page orientation (portrait/landscape/auto), paper sizes (A4/Letter/Fit), and margins. | Images → PDF |
+| **Metadata & EXIF Cleaner** | Inspect deep image metadata, dimensions, and aspect ratio. 1-click strip of GPS coordinates, camera serials, and EXIF tags. | All image types |
 
 ---
 
-## 🔒 Privacy
+## 📄 PDF Suite
 
-FileForge was designed from the ground up with privacy as the first constraint, not an afterthought.
+| Tool | Core Features & Capabilities | Engine |
+|---|---|---|
+| **PDF Merger** | Combine multiple PDF documents into a single document with drag-and-drop file reordering, individual page counts, and instant merge. | `pdf-lib` |
+| **PDF Compressor & Reducer** | Downsample and recompress PDF pages client-side using custom DPI profiles (100 DPI extreme, 150 DPI balanced, 200 DPI high-res) for quick uploads. | `pdf.js` + `pdf-lib` |
+| **PDF Editor & Annotator** | Stamp diagonal/horizontal watermarks, insert page numbering ("Page X of Y"), add custom text annotations, and draw/place electronic signatures. | `pdf-lib` + Canvas |
+| **PDF Splitter & Extractor** | Interactive page thumbnail grid: extract selected pages to a new PDF, delete unwanted pages, or split all pages into separate PDFs in a ZIP archive. | `pdf.js` + `pdf-lib` + `JSZip` |
+| **PDF to Images** | Convert every page of a PDF document into high-resolution PNG or JPEG images (150/200/300 DPI retina) with single or bulk ZIP downloads. | `pdf.js` + `JSZip` |
 
-- ✅ **No server uploads** — files are processed entirely in-browser using the Canvas API and FileReader API
-- ✅ **No tracking** — zero analytics, zero telemetry, zero cookies (except `localStorage` for theme preference)
-- ✅ **No accounts** — nothing to sign up for
-- ✅ **Core processing runs locally** — file operations happen directly in your browser
-- ✅ **Object URLs revoked** — all `URL.createObjectURL` blobs are revoked after use to free memory
+---
 
-> **Note:** The only external resource loaded at runtime is [jsPDF 2.5.1](https://github.com/parallax/jsPDF) from the Cloudflare CDN, used solely for PDF generation. All other functionality is self-contained.
+## 🔒 Privacy & Architecture
+
+FileForge was designed with zero-trust privacy constraints:
+
+- ✅ **Zero Server Uploads**: Files are read into client memory via the HTML5 `FileReader` API and manipulated in local buffers (`HTML5 Canvas`, `pdf-lib`, `pdf.js`).
+- ✅ **Zero Telemetry / Trackers**: No Google Analytics, Meta Pixels, cookies, or remote logging.
+- ✅ **Memory Leak Prevention**: All generated Object URLs (`URL.createObjectURL`) are revoked immediately after user download.
+- ✅ **Offline Compatible**: Works entirely client-side once loaded.
 
 ---
 
 ## 🛠 Tech Stack
 
-| Layer | Technology |
+| Component | Technology |
 |---|---|
-| Structure | HTML5 (semantic, accessible markup) |
-| Styling | Vanilla CSS3 (custom properties, grid, glassmorphism) |
-| Logic | Vanilla JavaScript ES2020+ (IIFEs, async/await, Canvas API) |
-| Font | [Inter](https://fonts.google.com/specimen/Inter) via Google Fonts |
-| PDF generation | [jsPDF 2.5.1](https://github.com/parallax/jsPDF) via CDN |
-| Image processing | HTML5 Canvas API |
-| File reading | FileReader API + File Drag & Drop API |
-| Routing | URL `?tool=` query param + `history.pushState` |
-| Persistence | `localStorage` (theme + recently used tools only) |
+| Interface | Semantic HTML5, CSS3 Custom Properties (Dark/Light modes), Inter & JetBrains Mono typography |
+| Scripting | Vanilla JavaScript ES2020+ (Modular IIFE patterns, Web Workers, Canvas API) |
+| PDF Manipulation | [pdf-lib 1.17.1](https://pdf-lib.js.org/) via cdnjs |
+| PDF Page Rendering | [pdf.js 3.11.174](https://mozilla.github.io/pdf.js/) via cdnjs |
+| PDF Generation | [jsPDF 2.5.1](https://github.com/parallax/jsPDF) via cdnjs |
+| Archive Packaging | [JSZip 3.10.1](https://stuk.github.io/jszip/) via cdnjs |
+| Routing | URL `?tool=` query parameter with `history.pushState` |
 
 ---
 
@@ -96,172 +93,64 @@ FileForge was designed from the ground up with privacy as the first constraint, 
 
 ```
 FileForge/
-├── index.html              # Landing page (hero, tool cards, privacy section)
-├── tools.html              # All tools shell (SPA-style panel switching)
+├── index.html              # Clean product landing page & universal dropzone
+├── tools.html              # Unified Studio workspace with sidebar navigation
 ├── README.md
 │
 ├── css/
-│   ├── style.css           # Full design system — tokens, components, layouts
-│   └── responsive.css      # Breakpoint overrides (1024px, 768px, 480px)
+│   ├── style.css           # Clean utility design system tokens & components
+│   └── responsive.css      # Responsive breakpoints (desktop, tablet, mobile)
 │
 └── js/
-    ├── utils.js            # Shared FF namespace — helpers, toast, drop zones
-    ├── app.js              # Theme toggle, sidebar nav, tool switching, routing
-    ├── scene.js            # Hero background canvas ambient animation
+    ├── utils.js            # Shared helpers (file size, dropzones, zip, toasts)
+    ├── app.js              # Theme manager, SPA router, category filters
     │
-    ├── image-converter.js  # Tool: format conversion
-    ├── image-resizer.js    # Tool: resize + aspect ratio lock + presets
-    ├── image-compressor.js # Tool: quality slider + before/after compare
-    ├── image-cropper.js    # Tool: canvas crop box + rotate + zoom
-    ├── image-pdf.js        # Tool: multi-image → PDF (uses jsPDF)
-    ├── file-reducer.js     # Tool: compression with live size estimate
-    └── file-info.js        # Tool: file metadata inspector
+    ├── image-converter.js  # Format conversion (PNG, JPG, WEBP, ICO, SVG, BMP)
+    ├── image-resizer.js    # Custom dimensions (215x100), aspect lock, presets
+    ├── image-compressor.js # Visual quality slider & before/after compare
+    ├── file-reducer.js     # Target file size compressor (KB/MB)
+    ├── image-cropper.js    # Canvas crop, custom ratio, rotation, zoom
+    ├── image-pdf.js        # Multi-image to PDF compilation
+    ├── file-info.js        # Metadata inspection & EXIF privacy scrubber
+    │
+    ├── pdf-merger.js       # Combine multiple PDF documents
+    ├── pdf-compressor.js   # Client-side PDF page downsampling & size reducer
+    ├── pdf-editor.js       # Watermarking, numbering, text, & signature pad
+    ├── pdf-splitter.js     # Page extraction, page deletion, & split to ZIP
+    └── pdf-to-image.js     # PDF page rasterizer (PNG/JPEG) & ZIP export
 ```
 
 ---
 
 ## 🚀 Getting Started
 
-FileForge requires **no build step, no npm, no dependencies to install**.
+FileForge requires **no build step, no npm, and no local server installation**.
 
-### Option 1 — Open directly
+### Option 1 — Open directly in browser
 
 ```bash
 git clone https://github.com/anfaalresearch/FileForge.git
 cd FileForge
-
-# macOS
-open index.html
-
-# Linux
-xdg-open index.html
-
-# Windows
-start index.html
+open index.html # On macOS (or double-click index.html)
 ```
 
-### Option 2 — Serve locally (recommended)
-
-Some browsers restrict `file://` protocol for certain APIs. Use any static server:
+### Option 2 — Serve with any local HTTP server
 
 ```bash
-# Python 3
-python3 -m http.server 3000
-
-# Node.js
-npx serve .
-
-# PHP
-php -S localhost:3000
+python3 -m http.server 8080
+# Open http://localhost:8080
 ```
-
-Then open [http://localhost:3000](http://localhost:3000).
-
----
-
-## 🏗 Architecture
-
-### Global Namespace — `FF`
-
-All shared utilities live on the `window.FF` object, defined in `utils.js` and available to every tool script:
-
-```
-FF.formatFileSize(bytes)          → "1.4 MB"
-FF.getFileExtension(filename)     → "png"
-FF.mimeToExt(mime)                → "jpg"
-FF.mimeToFriendly(mime)          → "JPEG"
-FF.changeExt(filename, ext)       → "photo.webp"
-FF.loadImage(file)                → Promise<HTMLImageElement>
-FF.downloadBlob(blob, filename)   → triggers browser download + auto-revoke
-FF.setupDropZone(zone, input, cb) → wires drag & drop + file input
-FF.show(el) / FF.hide(el)        → add/remove .hidden class
-FF.toast(message, type)           → type: 'success' | 'error' | 'warning' | 'info'
-```
-
-### Tool Script Pattern
-
-Every tool follows the same IIFE structure:
-
-```js
-(function () {
-  'use strict';
-
-  // 1. Query all DOM elements needed by this tool
-  const upload = document.querySelector('#myToolUpload');
-
-  // 2. Wire up drag & drop and file input via FF.setupDropZone
-  FF.setupDropZone(upload, fileInput, handleFile);
-
-  // 3. handleFile — validate, update file card, show controls
-  function handleFile(file) { /* ... */ }
-
-  // 4. Core processing — async, uses Canvas API or jsPDF
-  async function processFile() { /* ... */ }
-
-  // 5. resetTool — revoke object URLs, clear state, restore upload zone
-  function resetTool() { /* ... */ }
-
-})();
-```
-
-### Routing (tools.html)
-
-`tools.html` is a single-page shell. Panels are toggled via the `.hidden` CSS class.
-
-| Trigger | Behaviour |
-|---|---|
-| Page load with `?tool=resizer` | Opens Image Resizer directly |
-| Sidebar link click | Switches panel + pushes URL via `history.pushState` |
-| Browser back/forward | `popstate` listener re-reads URL and switches panel |
-| Sidebar search | Filters sidebar links by name in real time |
-
----
-
-## 🛡 Security Audit
-
-| Finding | Severity | Status |
-|---|---|---|
-| File contents never sent to any server | — | ✅ By design |
-| `URL.createObjectURL` blobs revoked after use | — | ✅ Implemented |
-| Filename sanitized before `innerHTML` injection | Low | ✅ Fixed |
-| No `eval()` or `document.write` anywhere | — | ✅ Clean |
-| `localStorage` stores only theme + tool IDs, never file data | — | ✅ Clean |
-| All async processing wrapped in try/catch with user feedback | — | ✅ Handled |
-| File size limits enforced before processing | — | ✅ 100MB images · 500MB info |
-| CORS canvas taint impossible — all sources are local `File` objects | — | ✅ N/A |
 
 ---
 
 ## 🌐 Browser Support
 
-| Browser | Support |
-|---|---|
-| Chrome / Edge 90+ | ✅ Full |
-| Firefox 90+ | ✅ Full |
-| Safari 15+ | ✅ Full |
-| Safari iOS 15+ | ✅ Full |
-| Chrome Android | ✅ Full |
-
-> **Requires:** Canvas API · FileReader API · File Drag & Drop · CSS Custom Properties · `URL.createObjectURL` · `history.pushState`
-
----
-
-## 🤝 Contributing
-
-1. **Fork** the repo
-2. **Create** a branch: `git checkout -b feat/my-new-tool`
-3. **Follow** the tool pattern above
-4. **Test** in Chrome and Firefox
-5. **Open** a pull request
-
-### Adding a New Tool (checklist)
-
-- [ ] Create `js/my-tool.js` following the IIFE tool pattern
-- [ ] Add `<div id="panel-mytool" class="tool-panel">` in `tools.html`
-- [ ] Add `<a class="sidebar-link" data-tool="mytool">` in `tools.html`
-- [ ] Register the name in `toolNames` in `app.js`
-- [ ] Add a card in `index.html`
-- [ ] Add `<script src="js/my-tool.js"></script>` in `tools.html`
+| Browser | Minimum Version | Status |
+|---|---|---|
+| Chrome / Chromium / Edge | 90+ | ✅ Full Support |
+| Firefox | 90+ | ✅ Full Support |
+| Safari (macOS / iOS) | 15+ | ✅ Full Support |
+| Chrome Android | Current | ✅ Full Support |
 
 ---
 
@@ -270,13 +159,3 @@ Every tool follows the same IIFE structure:
 MIT © 2026 Anfaal
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files, to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software.
-
----
-
-<div align="center">
-
-Made with ⚡ for the open web.
-
-**[⬆ Back to top](#-fileforge)**
-
-</div>

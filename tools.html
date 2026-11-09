@@ -1,655 +1,1215 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tools — FileForge</title>
-    <meta name="description" content="FileForge tools — convert, resize, compress and transform your files privately.">
+    <title>FileForge — Studio Workspace</title>
+    <meta name="description" content="Local, high-performance Image and PDF tools inside your browser. No server uploads.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
-
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232563eb'/><path d='M30 70 L50 30 L70 70 Z' fill='white'/></svg>">
 </head>
+
 <body>
     <!-- Top Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <div style="display:flex;align-items:center;gap:12px">
-                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
                 </button>
-                <a href="index.html" class="nav-logo">
-                    <span class="logo-icon">⚡</span>
-                    <span class="logo-text">FileForge</span>
+                <a href="index.html" class="nav-brand">
+                    <span class="brand-icon">F</span>
+                    <span>FileForge</span>
                 </a>
             </div>
-            <div class="nav-center">
-                <div class="tool-search-wrap">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                    <input type="text" class="tool-search" id="toolSearch" placeholder="Search tools..." aria-label="Search tools">
-                </div>
+
+            <!-- Studio Switcher -->
+            <div class="nav-tabs">
+                <a href="tools.html?tool=converter" class="nav-tab-item active">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    <span>Image Studio</span>
+                </a>
+                <a href="tools.html?tool=pdfmerge" class="nav-tab-item">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    <span>PDF Studio</span>
+                </a>
             </div>
+
             <div class="nav-actions">
-                <a href="index.html" class="btn btn-ghost btn-sm">← Home</a>
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle theme">
-                    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-                    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <div class="privacy-badge">
+                    <span class="privacy-dot"></span>
+                    <span>In-Browser Sandbox</span>
+                </div>
+                <a href="index.html" class="btn btn-ghost btn-sm">Home</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- Sidebar Overlay (mobile) -->
+    <!-- Mobile Drawer Overlay -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <!-- Layout -->
+    <!-- Application Shell -->
     <div class="app-layout">
-        <!-- Sidebar -->
+        <!-- Sidebar Navigation -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <span class="sidebar-label">Tools</span>
+                <div class="sidebar-filter-pills">
+                    <div class="cat-pill active" data-category="all">All</div>
+                    <div class="cat-pill" data-category="image">Image</div>
+                    <div class="cat-pill" data-category="pdf">PDF</div>
+                </div>
+                <div style="margin-top: 10px;">
+                    <input type="text" class="input-text" id="toolSearch" placeholder="Filter tools..." style="font-size: 0.82rem; padding: 6px 10px;">
+                </div>
             </div>
-            <nav class="sidebar-nav" id="sidebarNav">
-                <a href="#" class="sidebar-link active" data-tool="converter">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                    <span>Image Converter</span>
-                </a>
-                <a href="#" class="sidebar-link" data-tool="resizer">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-                    <span>Image Resizer</span>
-                </a>
-                <a href="#" class="sidebar-link" data-tool="compressor">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4"/><polyline points="14 2 14 8 20 8"/><path d="M2 15h10"/><path d="m5 12-3 3 3 3"/></svg>
-                    <span>Image Compressor</span>
-                </a>
-                <a href="#" class="sidebar-link" data-tool="pdf">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                    <span>Image to PDF</span>
-                </a>
-                <a href="#" class="sidebar-link" data-tool="cropper">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.13 1L6 16a2 2 0 0 0 2 2h15"/><path d="M1 6.13L16 6a2 2 0 0 1 2 2v15"/></svg>
-                    <span>Image Cropper</span>
-                </a>
-                <a href="#" class="sidebar-link" data-tool="reducer">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-                    <span>File Size Reducer</span>
-                </a>
-                <a href="#" class="sidebar-link" data-tool="fileinfo">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                    <span>File Information</span>
-                </a>
-            </nav>
-            <div class="sidebar-footer">
-                <div class="privacy-mini-badge">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    <span>Client-side only</span>
+
+            <div class="sidebar-scroll">
+                <!-- Image Section -->
+                <div class="sidebar-section" data-sec-cat="image">
+                    <div class="sidebar-section-title">Image Suite</div>
+                    <a href="#" class="sidebar-link active" data-tool="converter" data-cat="image">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                        <span>Image Converter</span>
+                    </a>
+                    <a href="#" class="sidebar-link" data-tool="resizer" data-cat="image">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                        <span>Image Resizer</span>
+                    </a>
+                    <a href="#" class="sidebar-link" data-tool="compressor" data-cat="image">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4"/><polyline points="14 2 14 8 20 8"/></svg>
+                        <span>Image Compressor</span>
+                    </a>
+                    <a href="#" class="sidebar-link" data-tool="reducer" data-cat="image">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                        <span>Image Size Reducer</span>
+                    </a>
+                    <a href="#" class="sidebar-link" data-tool="cropper" data-cat="image">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6.13 1L6 16a2 2 0 0 0 2 2h15"/><path d="M1 6.13L16 6a2 2 0 0 1 2 2v15"/></svg>
+                        <span>Image Cropper</span>
+                    </a>
+                    <a href="#" class="sidebar-link" data-tool="imagepdf" data-cat="image">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                        <span>Image to PDF</span>
+                    </a>
+                    <a href="#" class="sidebar-link" data-tool="fileinfo" data-cat="image">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                        <span>Metadata & EXIF</span>
+                    </a>
+                </div>
+
+                <!-- PDF Section -->
+                <div class="sidebar-section" data-sec-cat="pdf" style="margin-top: 14px;">
+                    <div class="sidebar-section-title">PDF Suite</div>
+                    <a href="#" class="sidebar-link" data-tool="pdfmerge" data-cat="pdf">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/></svg>
+                        <span>PDF Merger</span>
+                    </a>
+                    <a href="#" class="sidebar-link" data-tool="pdfcompress" data-cat="pdf">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                        <span>PDF Compressor</span>
+                    </a>
+                    <a href="#" class="sidebar-link" data-tool="pdfedit" data-cat="pdf">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                        <span>PDF Editor & Annotate</span>
+                    </a>
+                    <a href="#" class="sidebar-link" data-tool="pdfsplit" data-cat="pdf">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+                        <span>PDF Splitter</span>
+                    </a>
+                    <a href="#" class="sidebar-link" data-tool="pdftoimg" data-cat="pdf">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><circle cx="10" cy="13" r="1.5"/><polyline points="16 17 13 14 10 17"/></svg>
+                        <span>PDF to Images</span>
+                    </a>
                 </div>
             </div>
         </aside>
 
-        <!-- Main Content -->
+        <!-- Main Workspace -->
         <main class="main-content" id="mainContent">
             <!-- Breadcrumb -->
-            <div class="breadcrumb" id="breadcrumb">
-                <a href="index.html">Home</a>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-                <span>Tools</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-                <span id="breadcrumbTool">Image Converter</span>
+            <div style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 18px; display: flex; align-items: center; gap: 8px;">
+                <a href="index.html">Workspace</a>
+                <span>/</span>
+                <span id="breadcrumbTool" style="color: var(--text-main); font-weight: 600;">Image Converter</span>
             </div>
 
-            <!-- Tool Container -->
-            <div class="tool-container" id="toolContainer">
+            <!-- ==========================================
+                 PANEL 1: IMAGE CONVERTER
+                 ========================================== -->
+            <div class="tool-panel active" id="panel-converter">
+                <div class="tool-header">
+                    <h1 class="tool-title">Image Converter</h1>
+                    <p class="tool-desc">Convert between PNG, JPG, JPEG, WEBP, BMP, ICO, GIF, and SVG formats directly in your browser. Single or batch mode.</p>
+                </div>
 
-                <!-- ==================== IMAGE CONVERTER ==================== -->
-                <div class="tool-panel active" id="panel-converter">
-                    <div class="tool-header">
-                        <h1 class="tool-title">Image Converter</h1>
-                        <p class="tool-desc">Convert between image formats instantly — PNG, JPG, WEBP, GIF, and BMP.</p>
+                <div class="dropzone" id="converterUpload">
+                    <input type="file" id="converterFileInput" accept="image/*,.png,.jpg,.jpeg,.webp,.gif,.bmp,.ico,.svg" multiple class="hidden">
+                    <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    <div class="dropzone-text">Click to choose or drag images here</div>
+                    <div class="dropzone-sub">Supports PNG, JPG, JPEG, WebP, GIF, BMP, ICO, and SVG (batch enabled)</div>
+                </div>
+
+                <!-- Single file card -->
+                <div class="file-card hidden" id="converterFileCard">
+                    <div class="file-card-info">
+                        <img id="converterPreview" class="file-card-thumb" alt="Preview">
+                        <div class="file-card-meta">
+                            <div class="file-card-name" id="converterFileName">image.png</div>
+                            <div class="file-card-stats">
+                                <span class="mono" id="converterFileSize">0 KB</span>
+                                <span>·</span>
+                                <span class="mono" id="converterDims">-- × --</span>
+                                <span class="badge badge-neutral" id="converterFileType">PNG</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-outline" id="converterRemove">Remove</button>
+                </div>
+
+                <!-- Batch files list -->
+                <div class="controls-panel hidden" id="converterBatchList"></div>
+
+                <!-- Controls -->
+                <div class="controls-panel hidden" id="converterControls">
+                    <div class="controls-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="converterFormat">Target Format</label>
+                            <select class="select-input" id="converterFormat">
+                                <option value="image/png">PNG — Lossless & Transparency</option>
+                                <option value="image/jpeg">JPG / JPEG — Standard Web</option>
+                                <option value="image/webp">WEBP — High Efficiency</option>
+                                <option value="image/x-icon">ICO — Multi-size Favicon</option>
+                                <option value="image/bmp">BMP — Bitmap</option>
+                                <option value="image/svg+xml">SVG — Vector wrapper</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="converterQualityGroup">
+                            <div style="display: flex; justify-content: space-between;">
+                                <label class="form-label">Compression Quality</label>
+                                <span class="slider-val-badge" id="converterQualityValue">90%</span>
+                            </div>
+                            <div class="range-slider-wrap">
+                                <input type="range" id="converterQuality" min="10" max="100" value="90">
+                            </div>
+                        </div>
+
+                        <div class="form-group hidden" id="converterBgGroup">
+                            <label class="form-label" for="converterBgColor">Background Fill (for Alpha)</label>
+                            <input type="color" id="converterBgColor" value="#FFFFFF" style="height: 38px; width: 60px; border-radius: var(--radius-sm); border: 1px solid var(--border-strong); cursor: pointer;">
+                        </div>
                     </div>
 
-                    <div class="tool-body">
-                        <!-- Upload Zone -->
-                        <div class="upload-zone" id="converterUpload" role="button" tabindex="0" aria-label="Upload image for conversion">
-                            <input type="file" id="converterFileInput" accept="image/*" class="sr-only">
-                            <div class="upload-zone-content">
-                                <div class="upload-icon">
-                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                                </div>
-                                <p class="upload-text">Drag & drop your image here</p>
-                                <p class="upload-subtext">or <span class="upload-browse">browse files</span></p>
-                                <p class="upload-formats">Supports PNG, JPG, WEBP, GIF, BMP</p>
+                    <div style="display: flex; justify-content: flex-end; gap: 10px;">
+                        <button class="btn btn-primary" id="converterConvert">Convert Now</button>
+                    </div>
+                </div>
+
+                <div class="controls-panel hidden" id="converterProcessing" style="text-align: center; padding: 40px;">
+                    <div style="font-size: 1rem; font-weight: 600;">Converting files locally...</div>
+                    <div class="text-muted text-sm">Processing entirely inside your browser memory.</div>
+                </div>
+
+                <!-- Result -->
+                <div class="result-card hidden" id="converterResult">
+                    <div class="result-preview-box">
+                        <img id="converterResultPreview" alt="Converted result">
+                    </div>
+                    <div id="converterBatchSummary"></div>
+                    <div class="result-footer">
+                        <div>
+                            <div style="font-weight: 600;" id="converterOutInfo">CONVERTED_FILE</div>
+                            <div style="font-size: 0.82rem; color: var(--text-muted);" id="converterOrigInfo">ORIGINAL_FILE</div>
+                            <div style="margin-top: 4px;" id="converterSizeInfo" class="badge badge-success">Saved 0%</div>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline btn-sm" id="converterReset">Convert Another</button>
+                            <button class="btn btn-primary" id="converterDownload">Download File</button>
+                            <button class="btn btn-primary hidden" id="converterDownloadZip">Download All as ZIP</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 PANEL 2: IMAGE RESIZER (CUSTOM 215x100)
+                 ========================================== -->
+            <div class="tool-panel" id="panel-resizer">
+                <div class="tool-header">
+                    <h1 class="tool-title">Image Resizer</h1>
+                    <p class="tool-desc">Resize to exact custom pixel dimensions (e.g. 215 × 100), lock or unlock aspect ratios, scale by percentage, or choose standard presets.</p>
+                </div>
+
+                <div class="dropzone" id="resizerUpload">
+                    <input type="file" id="resizerFileInput" accept="image/*" class="hidden">
+                    <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                    <div class="dropzone-text">Click to choose or drag an image here</div>
+                    <div class="dropzone-sub">Resize with arbitrary width/height or locked proportions</div>
+                </div>
+
+                <div class="file-card hidden" id="resizerFileCard">
+                    <div class="file-card-info">
+                        <img id="resizerPreview" class="file-card-thumb" alt="Preview">
+                        <div class="file-card-meta">
+                            <div class="file-card-name" id="resizerFileName">image.png</div>
+                            <div class="file-card-stats">
+                                <span class="mono" id="resizerFileSize">0 KB</span>
+                                <span>·</span>
+                                <span class="mono" id="resizerDims">-- × --</span>
+                                <span class="badge badge-neutral" id="resizerFileType">IMG</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-outline" id="resizerRemove">Remove</button>
+                </div>
+
+                <div class="controls-panel hidden" id="resizerControls">
+                    <!-- Dimension Inputs with Aspect Ratio Unlock -->
+                    <div class="aspect-lock-row" style="margin-bottom: 20px;">
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label" for="resizerWidth">Width (px)</label>
+                            <input type="number" class="input-text mono" id="resizerWidth" placeholder="e.g. 215" min="1">
+                        </div>
+
+                        <button type="button" class="aspect-lock-btn" id="resizerLock" title="Toggle Aspect Ratio Lock">
+                            <svg class="icon-lock" style="display: none;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            <svg class="icon-unlock" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+                        </button>
+
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label" for="resizerHeight">Height (px)</label>
+                            <input type="number" class="input-text mono" id="resizerHeight" placeholder="e.g. 100" min="1">
+                        </div>
+
+                        <div class="form-group" style="width: 160px;">
+                            <label class="form-label" for="resizerFitMode">Fit Mode</label>
+                            <select class="select-input" id="resizerFitMode">
+                                <option value="stretch">Stretch to fit</option>
+                                <option value="cover">Crop to fill</option>
+                                <option value="contain">Contain (Letterbox)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Quick Ratio & Dimension Presets -->
+                    <div style="margin-bottom: 18px;">
+                        <label class="form-label">Quick Ratio & Dimension Shortcuts</label>
+                        <div class="preset-group">
+                            <button type="button" class="preset-btn" data-w="215" data-h="100">215 × 100 (Custom)</button>
+                            <button type="button" class="preset-btn" data-ratio="16:9">16:9 Widescreen</button>
+                            <button type="button" class="preset-btn" data-ratio="4:3">4:3 Standard</button>
+                            <button type="button" class="preset-btn" data-ratio="1:1">1:1 Square</button>
+                            <button type="button" class="preset-btn" data-ratio="9:16">9:16 Story/Reel</button>
+                            <button type="button" class="preset-btn" data-w="1920" data-h="1080">1920 × 1080 (1080p)</button>
+                            <button type="button" class="preset-btn" data-w="1280" data-h="720">1280 × 720 (720p)</button>
+                            <button type="button" class="preset-btn" data-w="1080" data-h="1080">1080 × 1080 (Insta Post)</button>
+                            <button type="button" class="preset-btn" data-w="1500" data-h="500">1500 × 500 (X Banner)</button>
+                        </div>
+                    </div>
+
+                    <!-- Percentage Scale -->
+                    <div class="form-group" style="margin-bottom: 24px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <label class="form-label">Scale Percentage</label>
+                            <span class="slider-val-badge" id="resizerPercentVal">100%</span>
+                        </div>
+                        <div class="range-slider-wrap">
+                            <input type="range" id="resizerPercent" min="10" max="300" value="100">
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: flex-end;">
+                        <button class="btn btn-primary" id="resizerResize">Resize Image</button>
+                    </div>
+                </div>
+
+                <div class="controls-panel hidden" id="resizerProcessing" style="text-align: center; padding: 40px;">
+                    <div>Resizing image...</div>
+                </div>
+
+                <div class="result-card hidden" id="resizerResult">
+                    <div class="result-preview-box">
+                        <img id="resizerResultPreview" alt="Resized result">
+                    </div>
+                    <div class="result-footer">
+                        <div>
+                            <div style="font-weight: 600;" id="resizerOutInfo">-- × --</div>
+                            <div style="font-size: 0.82rem; color: var(--text-muted);" id="resizerOrigInfo">Original: -- × --</div>
+                            <div style="margin-top: 4px;" id="resizerSizeInfo" class="badge badge-neutral">0 KB</div>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline btn-sm" id="resizerReset">Reset</button>
+                            <button class="btn btn-primary" id="resizerDownload">Download Resized Image</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 PANEL 3: IMAGE COMPRESSOR
+                 ========================================== -->
+            <div class="tool-panel" id="panel-compressor">
+                <div class="tool-header">
+                    <h1 class="tool-title">Image Compressor</h1>
+                    <p class="tool-desc">Lossy and lossless visual compression with live side-by-side comparison and byte savings.</p>
+                </div>
+
+                <div class="dropzone" id="compressorUpload">
+                    <input type="file" id="compressorFileInput" accept="image/png,image/jpeg,image/webp" class="hidden">
+                    <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4"/><polyline points="14 2 14 8 20 8"/></svg>
+                    <div class="dropzone-text">Click to choose or drag an image here</div>
+                    <div class="dropzone-sub">Supports PNG, JPG, and WebP</div>
+                </div>
+
+                <div class="file-card hidden" id="compressorFileCard">
+                    <div class="file-card-info">
+                        <img id="compressorPreview" class="file-card-thumb" alt="Preview">
+                        <div class="file-card-meta">
+                            <div class="file-card-name" id="compressorFileName">image.jpg</div>
+                            <div class="file-card-stats">
+                                <span class="mono" id="compressorFileSize">0 KB</span>
+                                <span>·</span>
+                                <span class="mono" id="compressorDims">-- × --</span>
+                                <span class="badge badge-neutral" id="compressorFileType">JPG</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-outline" id="compressorRemove">Remove</button>
+                </div>
+
+                <div class="controls-panel hidden" id="compressorControls">
+                    <div class="controls-grid">
+                        <div class="form-group">
+                            <div style="display: flex; justify-content: space-between;">
+                                <label class="form-label">Compression Level</label>
+                                <span class="slider-val-badge" id="compressorQualityValue">80%</span>
+                            </div>
+                            <div class="range-slider-wrap">
+                                <input type="range" id="compressorQuality" min="5" max="100" value="80">
                             </div>
                         </div>
 
-                        <!-- File Card (hidden by default) -->
-                        <div class="file-card hidden" id="converterFileCard">
-                            <div class="file-card-preview">
-                                <img id="converterPreview" alt="Image preview">
+                        <div class="form-group">
+                            <label class="form-label" for="compressorFormat">Output Codec</label>
+                            <select class="select-input" id="compressorFormat">
+                                <option value="image/webp">WebP (Smallest file size)</option>
+                                <option value="image/jpeg">JPEG (High compatibility)</option>
+                                <option value="image/png">PNG (Lossless)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: flex-end;">
+                        <button class="btn btn-primary" id="compressorCompress">Compress Image</button>
+                    </div>
+                </div>
+
+                <div class="controls-panel hidden" id="compressorProcessing" style="text-align: center; padding: 40px;">
+                    <div>Compressing image...</div>
+                </div>
+
+                <div class="result-card hidden" id="compressorResult">
+                    <div class="compare-grid">
+                        <div class="compare-card">
+                            <div style="font-size: 0.8rem; font-weight: 600; margin-bottom: 6px;">Original</div>
+                            <img id="compressorOrigImg" alt="Original">
+                            <div class="mono" id="compressorOrigSize">0 KB</div>
+                        </div>
+                        <div class="compare-card">
+                            <div style="font-size: 0.8rem; font-weight: 600; margin-bottom: 6px;">Compressed</div>
+                            <img id="compressorCompImg" alt="Compressed">
+                            <div class="mono text-success" id="compressorCompSize">0 KB</div>
+                        </div>
+                    </div>
+                    <div class="result-footer">
+                        <div>
+                            <div style="font-weight: 700; font-size: 1rem;" id="compressorReduction">Saved 0%</div>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline btn-sm" id="compressorReset">Reset</button>
+                            <button class="btn btn-primary" id="compressorDownload">Download Compressed Image</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 PANEL 4: IMAGE FILE SIZE REDUCER (TARGET SIZE)
+                 ========================================== -->
+            <div class="tool-panel" id="panel-reducer">
+                <div class="tool-header">
+                    <h1 class="tool-title">Image Size Reducer</h1>
+                    <p class="tool-desc">Reduce an image to a strict target file size (e.g. under 100 KB or 200 KB) for web upload forms and portals.</p>
+                </div>
+
+                <div class="dropzone" id="reducerUpload">
+                    <input type="file" id="reducerFileInput" accept="image/*" class="hidden">
+                    <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                    <div class="dropzone-text">Click to choose or drag an image here</div>
+                    <div class="dropzone-sub">Smart target size optimizer with binary search quality matching</div>
+                </div>
+
+                <div class="file-card hidden" id="reducerFileCard">
+                    <div class="file-card-info">
+                        <img id="reducerPreview" class="file-card-thumb" alt="Preview">
+                        <div class="file-card-meta">
+                            <div class="file-card-name" id="reducerFileName">image.png</div>
+                            <div class="file-card-stats">
+                                <span class="mono" id="reducerFileSize">0 KB</span>
+                                <span class="badge badge-neutral" id="reducerFileType">IMG</span>
                             </div>
-                            <div class="file-card-info">
-                                <div class="file-card-name" id="converterFileName"></div>
-                                <div class="file-card-meta">
-                                    <span id="converterFileSize"></span>
-                                    <span class="meta-dot"></span>
-                                    <span id="converterFileType"></span>
-                                </div>
-                                <div class="file-card-dims" id="converterDims"></div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-outline" id="reducerRemove">Remove</button>
+                </div>
+
+                <div class="controls-panel hidden" id="reducerControls">
+                    <div style="max-width: 420px; margin-bottom: 18px;">
+                        <label class="form-label" for="reducerTargetSize">Desired Target File Size</label>
+                        <div style="display: flex; gap: 8px;">
+                            <input type="number" class="input-text mono" id="reducerTargetSize" value="150" min="5">
+                            <select class="select-input" id="reducerTargetUnit" style="width: 90px;">
+                                <option value="kb">KB</option>
+                                <option value="mb">MB</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 24px;">
+                        <label class="form-label">Quick Target Presets</label>
+                        <div class="preset-group">
+                            <button type="button" class="preset-btn target-preset-btn" data-kb="50">50 KB</button>
+                            <button type="button" class="preset-btn target-preset-btn" data-kb="100">100 KB</button>
+                            <button type="button" class="preset-btn target-preset-btn" data-kb="200">200 KB</button>
+                            <button type="button" class="preset-btn target-preset-btn" data-kb="500">500 KB</button>
+                            <button type="button" class="preset-btn target-preset-btn" data-kb="1000">1 MB</button>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: flex-end;">
+                        <button class="btn btn-primary" id="reducerCompress">Reduce to Target Size</button>
+                    </div>
+                </div>
+
+                <div class="controls-panel hidden" id="reducerProcessing" style="text-align: center; padding: 40px;">
+                    <div id="reducerProgressText" style="font-weight: 600;">Calculating optimal compression...</div>
+                </div>
+
+                <div class="result-card hidden" id="reducerResult">
+                    <div class="result-preview-box">
+                        <img id="reducerResultPreview" alt="Reduced result">
+                    </div>
+                    <div class="result-footer">
+                        <div>
+                            <div style="font-weight: 700; font-size: 1.1rem; color: var(--success);" id="reducerSavedInfo">Reduced by 0%</div>
+                            <div style="font-size: 0.82rem; color: var(--text-muted);">
+                                Original: <span class="mono" id="reducerOrigInfo">0 KB</span> → Result: <span class="mono" id="reducerOutInfo">0 KB</span>
                             </div>
-                            <button class="file-card-remove" id="converterRemove" aria-label="Remove file">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                            </button>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline btn-sm" id="reducerReset">Reset</button>
+                            <button class="btn btn-primary" id="reducerDownload">Download Result</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 PANEL 5: IMAGE CROPPER
+                 ========================================== -->
+            <div class="tool-panel" id="panel-cropper">
+                <div class="tool-header">
+                    <h1 class="tool-title">Image Cropper</h1>
+                    <p class="tool-desc">Crop with freeform or fixed aspect ratios (1:1, 16:9, 4:3, 215:100), rotate in 90° increments, and zoom.</p>
+                </div>
+
+                <div class="dropzone" id="cropperUpload">
+                    <input type="file" id="cropperFileInput" accept="image/*" class="hidden">
+                    <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6.13 1L6 16a2 2 0 0 0 2 2h15"/><path d="M1 6.13L16 6a2 2 0 0 1 2 2v15"/></svg>
+                    <div class="dropzone-text">Click to choose or drag an image here</div>
+                    <div class="dropzone-sub">Interactive canvas cropping</div>
+                </div>
+
+                <div class="file-card hidden" id="cropperFileCard">
+                    <div class="file-card-info">
+                        <img id="cropperPreview" class="file-card-thumb" alt="Preview">
+                        <div class="file-card-meta">
+                            <div class="file-card-name" id="cropperFileName">image.png</div>
+                            <div class="file-card-stats">
+                                <span class="mono" id="cropperFileSize">0 KB</span>
+                                <span class="badge badge-neutral" id="cropperFileType">IMG</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-outline" id="cropperRemove">Remove</button>
+                </div>
+
+                <div class="controls-panel hidden" id="cropperControls">
+                    <!-- Ratio presets -->
+                    <div style="margin-bottom: 16px;">
+                        <label class="form-label">Aspect Ratio</label>
+                        <div class="preset-group">
+                            <button type="button" class="preset-btn active" data-ratio="free">Freeform</button>
+                            <button type="button" class="preset-btn" data-ratio="1:1">1:1 Square</button>
+                            <button type="button" class="preset-btn" data-ratio="16:9">16:9 Widescreen</button>
+                            <button type="button" class="preset-btn" data-ratio="4:3">4:3 Standard</button>
+                            <button type="button" class="preset-btn" data-ratio="9:16">9:16 Story</button>
+                            <button type="button" class="preset-btn" data-ratio="215:100">215:100 Custom</button>
+                        </div>
+                    </div>
+
+                    <!-- Rotation & Zoom -->
+                    <div class="controls-grid" style="align-items: center;">
+                        <div style="display: flex; gap: 8px;">
+                            <button type="button" class="btn btn-outline btn-sm" id="cropperRotate">Rotate 90°</button>
+                            <button type="button" class="btn btn-outline btn-sm" id="cropperResetCrop">Reset Crop</button>
+                        </div>
+                        <div class="form-group">
+                            <div style="display: flex; justify-content: space-between;">
+                                <label class="form-label">Zoom</label>
+                                <span class="slider-val-badge" id="cropperZoomValue">100</span>
+                            </div>
+                            <div class="range-slider-wrap">
+                                <input type="range" id="cropperZoom" min="100" max="300" value="100">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Crop Canvas Wrap -->
+                    <div id="cropperCanvasWrap" style="position: relative; max-width: 100%; margin: 20px auto; overflow: hidden; display: flex; justify-content: center; background: #000; border-radius: var(--radius-md);">
+                        <canvas id="cropperCanvas" style="display: block; max-width: 100%;"></canvas>
+                        <div id="cropOverlay" style="position: absolute; inset: 0; pointer-events: auto;">
+                            <div id="cropBox" style="position: absolute; border: 2px dashed #ffffff; box-shadow: 0 0 0 9999px rgba(0,0,0,0.5); cursor: move;">
+                                <div data-handle="tl" style="position: absolute; top: -6px; left: -6px; width: 12px; height: 12px; background: #fff; cursor: nwse-resize;"></div>
+                                <div data-handle="tr" style="position: absolute; top: -6px; right: -6px; width: 12px; height: 12px; background: #fff; cursor: nesw-resize;"></div>
+                                <div data-handle="bl" style="position: absolute; bottom: -6px; left: -6px; width: 12px; height: 12px; background: #fff; cursor: nesw-resize;"></div>
+                                <div data-handle="br" style="position: absolute; bottom: -6px; right: -6px; width: 12px; height: 12px; background: #fff; cursor: nwse-resize;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
+                        <button class="btn btn-primary" id="cropperCrop">Apply Crop</button>
+                    </div>
+                </div>
+
+                <div class="controls-panel hidden" id="cropperProcessing" style="text-align: center; padding: 40px;">
+                    <div>Cropping image...</div>
+                </div>
+
+                <div class="result-card hidden" id="cropperResult">
+                    <div class="result-preview-box">
+                        <img id="cropperResultPreview" alt="Cropped image">
+                    </div>
+                    <div class="result-footer">
+                        <div>
+                            <div style="font-weight: 600;" id="cropperOutInfo">Cropped Image</div>
+                            <div style="font-size: 0.82rem; color: var(--text-muted);" id="cropperOrigInfo">--</div>
+                            <div style="margin-top: 4px;" id="cropperSizeInfo" class="badge badge-neutral">0 KB</div>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline btn-sm" id="cropperResetAll">Crop Again</button>
+                            <button class="btn btn-primary" id="cropperDownload">Download Cropped Image</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 PANEL 6: IMAGE TO PDF
+                 ========================================== -->
+            <div class="tool-panel" id="panel-imagepdf">
+                <div class="tool-header">
+                    <h1 class="tool-title">Image to PDF</h1>
+                    <p class="tool-desc">Combine multiple images into a clean PDF document with custom margins, page sizing, and orientation.</p>
+                </div>
+
+                <div class="dropzone" id="pdfUpload">
+                    <input type="file" id="pdfFileInput" accept="image/*" multiple class="hidden">
+                    <input type="file" id="pdfAddInput" accept="image/*" multiple class="hidden">
+                    <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                    <div class="dropzone-text">Click to choose or drag images here</div>
+                    <div class="dropzone-sub">Add one or multiple image files to compile into PDF</div>
+                </div>
+
+                <div class="controls-panel hidden" id="pdfFileList">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                        <span style="font-weight: 700;">Queued Images (<span id="pdfCount">0</span>)</span>
+                        <button type="button" class="btn btn-sm btn-outline" id="pdfAddMore">+ Add More Images</button>
+                    </div>
+
+                    <div id="pdfListItems" style="margin-bottom: 20px;"></div>
+
+                    <div class="controls-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="pdfPageSize">Page Format</label>
+                            <select class="select-input" id="pdfPageSize">
+                                <option value="a4">A4 (Standard Document)</option>
+                                <option value="letter">US Letter</option>
+                                <option value="fit">Fit to Image Size</option>
+                            </select>
                         </div>
 
-                        <!-- Controls -->
-                        <div class="tool-controls hidden" id="converterControls">
-                            <div class="control-group">
-                                <label class="control-label" for="converterFormat">Output Format</label>
-                                <select class="control-select" id="converterFormat">
-                                    <option value="image/png">PNG</option>
-                                    <option value="image/jpeg">JPG</option>
-                                    <option value="image/webp">WEBP</option>
-                                    <option value="image/bmp">BMP</option>
+                        <div class="form-group">
+                            <label class="form-label">Orientation</label>
+                            <div style="display: flex; gap: 14px; margin-top: 6px;">
+                                <label style="display: flex; align-items: center; gap: 6px; font-size: 0.88rem; cursor: pointer;">
+                                    <input type="radio" name="pdfOrientation" value="portrait" checked> Portrait
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 6px; font-size: 0.88rem; cursor: pointer;">
+                                    <input type="radio" name="pdfOrientation" value="landscape"> Landscape
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 6px; font-size: 0.88rem; cursor: pointer;">
+                                    <input type="radio" name="pdfOrientation" value="auto"> Auto
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="pdfMargin">Margins</label>
+                            <select class="select-input" id="pdfMargin">
+                                <option value="0">No Margins (Edge-to-Edge)</option>
+                                <option value="15" selected>Standard (15pt)</option>
+                                <option value="30">Wide (30pt)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: flex-end; margin-top: 14px;">
+                        <button class="btn btn-primary" id="pdfGenerate">Generate PDF Document</button>
+                    </div>
+                </div>
+
+                <div class="controls-panel hidden" id="pdfProcessing" style="text-align: center; padding: 40px;">
+                    <div>Building PDF document...</div>
+                </div>
+
+                <div class="result-card hidden" id="pdfResult">
+                    <div style="text-align: center; padding: 32px 16px;">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--success); margin-bottom: 12px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="9 15 12 18 15 15"/></svg>
+                        <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 6px;">PDF Ready for Download</h3>
+                        <p class="text-muted text-sm"><span id="pdfPages">0</span> pages created · <span id="pdfSize" class="mono">0 KB</span></p>
+                    </div>
+                    <div class="result-footer">
+                        <button class="btn btn-outline btn-sm" id="pdfReset">Create Another</button>
+                        <button class="btn btn-primary" id="pdfDownload">Download PDF Document</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 PANEL 7: METADATA & EXIF INSPECTOR
+                 ========================================== -->
+            <div class="tool-panel" id="panel-fileinfo">
+                <div class="tool-header">
+                    <h1 class="tool-title">Metadata & Privacy Inspector</h1>
+                    <p class="tool-desc">Inspect deep file metadata, dimensions, color depth, and scrub EXIF/GPS tracking data with one click.</p>
+                </div>
+
+                <div class="dropzone" id="infoUpload">
+                    <input type="file" id="infoFileInput" class="hidden">
+                    <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                    <div class="dropzone-text">Click to choose or drag any file here</div>
+                    <div class="dropzone-sub">Inspect headers, MIME types, and privacy data</div>
+                </div>
+
+                <div class="file-card hidden" id="infoFileCard">
+                    <div class="file-card-info">
+                        <img id="infoPreview" class="file-card-thumb" alt="Preview" style="display: none;">
+                        <div class="file-card-meta">
+                            <div class="file-card-name" id="infoFileName">document.pdf</div>
+                            <div class="file-card-stats">
+                                <span class="mono" id="infoFileSize">0 KB</span>
+                                <span class="badge badge-neutral" id="infoFileType">FILE</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-outline" id="infoRemove">Remove</button>
+                </div>
+
+                <div class="controls-panel hidden" id="infoTable">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-bottom: 20px;">
+                        <tbody>
+                            <tr style="border-bottom: 1px solid var(--border-subtle);"><td style="padding: 10px 0; color: var(--text-muted); width: 160px;">File Name</td><td class="mono" id="infoName" style="font-weight: 600;">--</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border-subtle);"><td style="padding: 10px 0; color: var(--text-muted);">File Type</td><td class="mono" id="infoType">--</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border-subtle);"><td style="padding: 10px 0; color: var(--text-muted);">MIME Type</td><td class="mono" id="infoMime">--</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border-subtle);"><td style="padding: 10px 0; color: var(--text-muted);">Extension</td><td class="mono" id="infoExt">--</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border-subtle);"><td style="padding: 10px 0; color: var(--text-muted);">Byte Size</td><td class="mono" id="infoSize">--</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border-subtle);"><td style="padding: 10px 0; color: var(--text-muted);">Last Modified</td><td class="mono" id="infoModified">--</td></tr>
+                            <tr id="infoDimsRow" style="border-bottom: 1px solid var(--border-subtle); display: none;"><td style="padding: 10px 0; color: var(--text-muted);">Image Dimensions</td><td class="mono" id="infoDims">--</td></tr>
+                        </tbody>
+                    </table>
+
+                    <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                        <button class="btn btn-outline btn-sm" id="infoCopy">Copy Info</button>
+                        <button class="btn btn-primary btn-sm hidden" id="infoStripExif">Strip EXIF & Download Clean Image</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 PANEL 8: PDF MERGER
+                 ========================================== -->
+            <div class="tool-panel" id="panel-pdfmerge">
+                <div class="tool-header">
+                    <h1 class="tool-title">PDF Merger</h1>
+                    <p class="tool-desc">Combine multiple PDF documents into a single document with custom ordering. 100% private in-browser merging.</p>
+                </div>
+
+                <div class="dropzone" id="pdfMergeUpload">
+                    <input type="file" id="pdfMergeFileInput" accept="application/pdf,.pdf" multiple class="hidden">
+                    <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color: var(--accent-pdf);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/></svg>
+                    <div class="dropzone-text">Click to choose or drag multiple PDF files here</div>
+                    <div class="dropzone-sub">Fast client-side assembly with zero server latency</div>
+                </div>
+
+                <div class="controls-panel hidden" id="pdfMergeControls">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                        <span style="font-weight: 700;">PDF Merge Sequence</span>
+                        <div style="display: flex; gap: 8px;">
+                            <button type="button" class="btn btn-sm btn-outline" id="pdfMergeAddMore">+ Add PDF</button>
+                            <button type="button" class="btn btn-sm btn-ghost" id="pdfMergeClear">Clear All</button>
+                        </div>
+                    </div>
+
+                    <div id="pdfMergeFileList" style="margin-bottom: 24px;"></div>
+
+                    <div style="display: flex; justify-content: flex-end;">
+                        <button class="btn btn-pdf" id="pdfMergeBtn" disabled>Merge PDFs</button>
+                    </div>
+                </div>
+
+                <div class="controls-panel hidden" id="pdfMergeProcessing" style="text-align: center; padding: 40px;">
+                    <div id="pdfMergeProgressText" style="font-weight: 600;">Combining PDF documents...</div>
+                </div>
+
+                <div class="result-card hidden" id="pdfMergeResult">
+                    <div style="text-align: center; padding: 32px 16px;">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--success); margin-bottom: 12px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 6px;">PDFs Merged Successfully</h3>
+                        <div id="pdfMergeResultInfo" style="margin-top: 10px;"></div>
+                    </div>
+                    <div class="result-footer">
+                        <button class="btn btn-outline btn-sm" id="pdfMergeReset">Merge Another</button>
+                        <button class="btn btn-pdf" id="pdfMergeDownload">Download Merged PDF</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 PANEL 9: PDF COMPRESSOR & SIZE REDUCER
+                 ========================================== -->
+            <div class="tool-panel" id="panel-pdfcompress">
+                <div class="tool-header">
+                    <h1 class="tool-title">PDF Compressor & Size Reducer</h1>
+                    <p class="tool-desc">Reduce PDF document file size for easy email sharing or portal uploads using client-side page optimization.</p>
+                </div>
+
+                <div class="dropzone" id="pdfCompressUpload">
+                    <input type="file" id="pdfCompressFileInput" accept="application/pdf,.pdf" class="hidden">
+                    <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color: var(--accent-pdf);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                    <div class="dropzone-text">Click to choose or drag a PDF here</div>
+                    <div class="dropzone-sub">Smart page recompression and resolution optimization</div>
+                </div>
+
+                <div class="file-card hidden" id="pdfCompressFileCard">
+                    <div class="file-card-info">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--accent-pdf);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        <div class="file-card-meta">
+                            <div class="file-card-name" id="pdfCompressFileName">document.pdf</div>
+                            <div class="file-card-stats">
+                                <span class="mono" id="pdfCompressFileSize">0 KB</span>
+                                <span>·</span>
+                                <span id="pdfCompressPageCount">0 Pages</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-outline" id="pdfCompressRemove">Remove</button>
+                </div>
+
+                <div class="controls-panel hidden" id="pdfCompressControls">
+                    <div class="controls-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="pdfCompressProfile">Compression Profile</label>
+                            <select class="select-input" id="pdfCompressProfile">
+                                <option value="balanced" selected>Recommended / Balanced (150 DPI)</option>
+                                <option value="extreme">Extreme Compression (Smallest Size, 100 DPI)</option>
+                                <option value="light">High Quality (Crisp Text, 200 DPI)</option>
+                                <option value="custom">Custom Quality</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group hidden" id="pdfCompressCustomGroup">
+                            <div style="display: flex; justify-content: space-between;">
+                                <label class="form-label">JPEG Quality</label>
+                                <span class="slider-val-badge" id="pdfCompressQualityVal">70%</span>
+                            </div>
+                            <div class="range-slider-wrap">
+                                <input type="range" id="pdfCompressQuality" min="20" max="95" value="70">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: flex-end; margin-top: 14px;">
+                        <button class="btn btn-pdf" id="pdfCompressBtn">Compress PDF Document</button>
+                    </div>
+                </div>
+
+                <div class="controls-panel hidden" id="pdfCompressProcessing" style="text-align: center; padding: 40px;">
+                    <div id="pdfCompressProgressText" style="font-weight: 600; margin-bottom: 12px;">Compressing pages...</div>
+                    <div style="width: 100%; max-width: 300px; height: 6px; background: var(--bg-surface-elevated); border-radius: 3px; margin: 0 auto; overflow: hidden;">
+                        <div id="pdfCompressProgressFill" style="width: 0%; height: 100%; background: var(--accent-pdf); transition: width 150ms ease;"></div>
+                    </div>
+                </div>
+
+                <div class="result-card hidden" id="pdfCompressResult">
+                    <div style="text-align: center; padding: 28px 16px;">
+                        <div style="font-size: 1.3rem; font-weight: 700; margin-bottom: 8px;">PDF Compressed!</div>
+                        <div style="display: flex; justify-content: center; gap: 20px; font-size: 0.95rem; margin-bottom: 14px;">
+                            <div>Original: <strong class="mono" id="pdfCompressOrigSize">0 KB</strong></div>
+                            <div>→</div>
+                            <div>New: <strong class="mono text-success" id="pdfCompressCompSize">0 KB</strong></div>
+                        </div>
+                        <span class="badge badge-success" id="pdfCompressReduction">Saved 0%</span>
+                    </div>
+                    <div class="result-footer">
+                        <button class="btn btn-outline btn-sm" id="pdfCompressReset">Compress Another</button>
+                        <button class="btn btn-pdf" id="pdfCompressDownload">Download Compressed PDF</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 PANEL 10: PDF EDITOR & ANNOTATOR
+                 ========================================== -->
+            <div class="tool-panel" id="panel-pdfedit">
+                <div class="tool-header">
+                    <h1 class="tool-title">PDF Editor & Annotator</h1>
+                    <p class="tool-desc">Stamp watermarks, add page numbers, type custom text, or draw and place your signature directly onto PDF pages.</p>
+                </div>
+
+                <div class="dropzone" id="pdfEditUpload">
+                    <input type="file" id="pdfEditFileInput" accept="application/pdf,.pdf" class="hidden">
+                    <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color: var(--accent-pdf);"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                    <div class="dropzone-text">Click to choose or drag a PDF here to edit</div>
+                    <div class="dropzone-sub">Add text, watermarks, numbering, and electronic signatures</div>
+                </div>
+
+                <div class="file-card hidden" id="pdfEditFileCard">
+                    <div class="file-card-info">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--accent-pdf);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        <div class="file-card-meta">
+                            <div class="file-card-name" id="pdfEditFileName">document.pdf</div>
+                            <div class="file-card-stats" id="pdfEditFileSize">0 KB</div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-outline" id="pdfEditRemove">Remove</button>
+                </div>
+
+                <div class="controls-panel hidden" id="pdfEditControls">
+                    <!-- Annotation Tabs -->
+                    <div class="nav-tabs" style="margin-bottom: 20px;">
+                        <button type="button" class="nav-tab-item active" id="pdfEditTabWatermark">Watermark</button>
+                        <button type="button" class="nav-tab-item" id="pdfEditTabNumbers">Page Numbers</button>
+                        <button type="button" class="nav-tab-item" id="pdfEditTabText">Add Text</button>
+                        <button type="button" class="nav-tab-item" id="pdfEditTabSignature">Signature</button>
+                    </div>
+
+                    <!-- Tab 1: Watermark -->
+                    <div id="pdfEditPanelWatermark">
+                        <div class="controls-grid">
+                            <div class="form-group">
+                                <label class="form-label" for="pdfEditWmText">Watermark Text</label>
+                                <input type="text" class="input-text" id="pdfEditWmText" value="CONFIDENTIAL">
+                            </div>
+                            <div class="form-group">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <label class="form-label">Opacity</label>
+                                    <span class="slider-val-badge" id="pdfEditWmOpacityVal">30%</span>
+                                </div>
+                                <div class="range-slider-wrap">
+                                    <input type="range" id="pdfEditWmOpacity" min="5" max="100" value="30">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="pdfEditWmRotation">Angle</label>
+                                <select class="select-input" id="pdfEditWmRotation">
+                                    <option value="45" selected>Diagonal (45°)</option>
+                                    <option value="0">Horizontal (0°)</option>
+                                    <option value="-45">Reverse Diagonal (-45°)</option>
                                 </select>
                             </div>
-                            <div class="control-group" id="converterQualityGroup">
-                                <label class="control-label" for="converterQuality">
-                                    Quality: <span id="converterQualityValue">92</span>%
-                                </label>
-                                <input type="range" class="control-range" id="converterQuality" min="10" max="100" value="92">
+                        </div>
+                        <button type="button" class="btn btn-outline btn-sm" id="pdfEditApplyWm" style="margin-top: 8px;">Queue Watermark</button>
+                    </div>
+
+                    <!-- Tab 2: Page Numbers -->
+                    <div id="pdfEditPanelNumbers" class="hidden">
+                        <div class="controls-grid">
+                            <div class="form-group">
+                                <label class="form-label" for="pdfEditPnFormat">Format</label>
+                                <select class="select-input" id="pdfEditPnFormat">
+                                    <option value="page_x_of_y" selected>Page X of Y</option>
+                                    <option value="x_of_y">X / Y</option>
+                                    <option value="x">X (Simple number)</option>
+                                </select>
                             </div>
-                            <button class="btn btn-primary btn-lg btn-full" id="converterConvert">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
-                                Convert Image
-                            </button>
+                            <div class="form-group">
+                                <label class="form-label" for="pdfEditPnPosition">Placement</label>
+                                <select class="select-input" id="pdfEditPnPosition">
+                                    <option value="bottom_center" selected>Bottom Center</option>
+                                    <option value="bottom_right">Bottom Right</option>
+                                    <option value="bottom_left">Bottom Left</option>
+                                    <option value="top_right">Top Right</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-outline btn-sm" id="pdfEditApplyPn" style="margin-top: 8px;">Queue Page Numbers</button>
+                    </div>
+
+                    <!-- Tab 3: Text -->
+                    <div id="pdfEditPanelText" class="hidden">
+                        <div class="controls-grid">
+                            <div class="form-group">
+                                <label class="form-label" for="pdfEditAnnotText">Text to Stamp</label>
+                                <input type="text" class="input-text" id="pdfEditAnnotText" placeholder="Click anywhere on the preview below to place">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="pdfEditAnnotSize">Font Size</label>
+                                <input type="number" class="input-text mono" id="pdfEditAnnotSize" value="16" min="8" max="72">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="pdfEditAnnotColor">Color</label>
+                                <input type="color" id="pdfEditAnnotColor" value="#000000" style="height: 38px; width: 60px; border-radius: var(--radius-sm); border: 1px solid var(--border-strong); cursor: pointer;">
+                            </div>
+                        </div>
+                        <div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">Click anywhere directly on the page preview canvas below to place this text annotation.</div>
+                    </div>
+
+                    <!-- Tab 4: Signature -->
+                    <div id="pdfEditPanelSignature" class="hidden">
+                        <div style="margin-bottom: 12px; font-size: 0.85rem; color: var(--text-muted);">Draw your signature in the box below:</div>
+                        <div class="signature-pad-wrap">
+                            <canvas id="pdfEditSigCanvas" width="380" height="140"></canvas>
+                        </div>
+                        <div style="display: flex; gap: 8px; margin-top: 10px;">
+                            <button type="button" class="btn btn-sm btn-outline" id="pdfEditSigClear">Clear</button>
+                            <button type="button" class="btn btn-sm btn-primary" id="pdfEditSigPlace">Stamp onto Current Page</button>
+                        </div>
+                    </div>
+
+                    <!-- Page Navigator & Interactive Preview -->
+                    <div style="margin-top: 24px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <button type="button" class="btn btn-sm btn-outline" id="pdfEditPrevPage">← Prev Page</button>
+                                <span class="mono" id="pdfEditPageNum" style="font-weight: 600;">Page 1 of 1</span>
+                                <button type="button" class="btn btn-sm btn-outline" id="pdfEditNextPage">Next Page →</button>
+                            </div>
+                            <button type="button" class="btn btn-pdf" id="pdfEditExport">Save & Export PDF</button>
                         </div>
 
-                        <!-- Processing -->
-                        <div class="processing-state hidden" id="converterProcessing">
-                            <div class="processing-spinner"></div>
-                            <p class="processing-text">Converting image...</p>
-                        </div>
-
-                        <!-- Result -->
-                        <div class="result-card hidden" id="converterResult">
-                            <div class="result-preview">
-                                <img id="converterResultPreview" alt="Converted image">
-                            </div>
-                            <div class="result-info">
-                                <div class="result-badge success">Conversion complete</div>
-                                <div class="result-details">
-                                    <div class="result-row">
-                                        <span class="result-label">Original</span>
-                                        <span class="result-value" id="converterOrigInfo"></span>
-                                    </div>
-                                    <div class="result-row">
-                                        <span class="result-label">Output</span>
-                                        <span class="result-value" id="converterOutInfo"></span>
-                                    </div>
-                                    <div class="result-row">
-                                        <span class="result-label">Size</span>
-                                        <span class="result-value" id="converterSizeInfo"></span>
-                                    </div>
-                                </div>
-                                <div class="result-actions">
-                                    <button class="btn btn-primary" id="converterDownload">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                                        Download
-                                    </button>
-                                    <button class="btn btn-outline" id="converterReset">Convert Another</button>
-                                </div>
-                            </div>
+                        <div class="editor-canvas-container">
+                            <canvas id="pdfEditCanvas"></canvas>
                         </div>
                     </div>
                 </div>
 
-                <!-- ==================== IMAGE RESIZER ==================== -->
-                <div class="tool-panel" id="panel-resizer">
-                    <div class="tool-header">
-                        <h1 class="tool-title">Image Resizer</h1>
-                        <p class="tool-desc">Resize images with custom dimensions, aspect ratio lock, and popular presets.</p>
-                    </div>
-                    <div class="tool-body">
-                        <div class="upload-zone" id="resizerUpload" role="button" tabindex="0" aria-label="Upload image for resizing">
-                            <input type="file" id="resizerFileInput" accept="image/*" class="sr-only">
-                            <div class="upload-zone-content">
-                                <div class="upload-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
-                                <p class="upload-text">Drag & drop your image here</p>
-                                <p class="upload-subtext">or <span class="upload-browse">browse files</span></p>
-                                <p class="upload-formats">Supports PNG, JPG, WEBP, GIF, BMP</p>
-                            </div>
-                        </div>
-                        <div class="file-card hidden" id="resizerFileCard">
-                            <div class="file-card-preview"><img id="resizerPreview" alt="Image preview"></div>
-                            <div class="file-card-info">
-                                <div class="file-card-name" id="resizerFileName"></div>
-                                <div class="file-card-meta">
-                                    <span id="resizerFileSize"></span>
-                                    <span class="meta-dot"></span>
-                                    <span id="resizerFileType"></span>
-                                </div>
-                                <div class="file-card-dims" id="resizerDims"></div>
-                            </div>
-                            <button class="file-card-remove" id="resizerRemove" aria-label="Remove file"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-                        </div>
-                        <div class="tool-controls hidden" id="resizerControls">
-                            <div class="control-row">
-                                <div class="control-group">
-                                    <label class="control-label" for="resizerWidth">Width (px)</label>
-                                    <input type="number" class="control-input" id="resizerWidth" min="1" max="10000" placeholder="Width">
-                                </div>
-                                <button class="btn-icon aspect-lock active" id="resizerLock" aria-label="Toggle aspect ratio lock" title="Lock aspect ratio">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lock-open"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lock-closed"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                                </button>
-                                <div class="control-group">
-                                    <label class="control-label" for="resizerHeight">Height (px)</label>
-                                    <input type="number" class="control-input" id="resizerHeight" min="1" max="10000" placeholder="Height">
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <label class="control-label">Presets</label>
-                                <div class="preset-grid">
-                                    <button class="preset-btn" data-w="1920" data-h="1080">1920×1080</button>
-                                    <button class="preset-btn" data-w="1280" data-h="720">1280×720</button>
-                                    <button class="preset-btn" data-w="1080" data-h="1080">1080×1080</button>
-                                    <button class="preset-btn" data-w="1080" data-h="1350">1080×1350</button>
-                                    <button class="preset-btn" data-w="1080" data-h="1920">1080×1920</button>
-                                </div>
-                            </div>
-                            <button class="btn btn-primary btn-lg btn-full" id="resizerResize">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-                                Resize Image
-                            </button>
-                        </div>
-                        <div class="processing-state hidden" id="resizerProcessing">
-                            <div class="processing-spinner"></div>
-                            <p class="processing-text">Resizing image...</p>
-                        </div>
-                        <div class="result-card hidden" id="resizerResult">
-                            <div class="result-preview"><img id="resizerResultPreview" alt="Resized image"></div>
-                            <div class="result-info">
-                                <div class="result-badge success">Resize complete</div>
-                                <div class="result-details">
-                                    <div class="result-row"><span class="result-label">Original</span><span class="result-value" id="resizerOrigInfo"></span></div>
-                                    <div class="result-row"><span class="result-label">Resized</span><span class="result-value" id="resizerOutInfo"></span></div>
-                                    <div class="result-row"><span class="result-label">Size</span><span class="result-value" id="resizerSizeInfo"></span></div>
-                                </div>
-                                <div class="result-actions">
-                                    <button class="btn btn-primary" id="resizerDownload"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download</button>
-                                    <button class="btn btn-outline" id="resizerReset">Resize Another</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="controls-panel hidden" id="pdfEditProcessing" style="text-align: center; padding: 40px;">
+                    <div>Applying annotations and rebuilding PDF...</div>
                 </div>
 
-                <!-- ==================== IMAGE COMPRESSOR ==================== -->
-                <div class="tool-panel" id="panel-compressor">
-                    <div class="tool-header">
-                        <h1 class="tool-title">Image Compressor</h1>
-                        <p class="tool-desc">Reduce image file size while maintaining quality. Compare original vs compressed.</p>
+                <div class="result-card hidden" id="pdfEditResult">
+                    <div style="text-align: center; padding: 32px 16px;">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--success); margin-bottom: 12px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 6px;">Document Successfully Updated</h3>
+                        <p class="text-muted text-sm">All text, watermarks, numbering, and signatures have been embedded.</p>
                     </div>
-                    <div class="tool-body">
-                        <div class="upload-zone" id="compressorUpload" role="button" tabindex="0" aria-label="Upload image for compression">
-                            <input type="file" id="compressorFileInput" accept="image/*" class="sr-only">
-                            <div class="upload-zone-content">
-                                <div class="upload-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
-                                <p class="upload-text">Drag & drop your image here</p>
-                                <p class="upload-subtext">or <span class="upload-browse">browse files</span></p>
-                                <p class="upload-formats">Supports PNG, JPG, WEBP</p>
-                            </div>
-                        </div>
-                        <div class="file-card hidden" id="compressorFileCard">
-                            <div class="file-card-preview"><img id="compressorPreview" alt="Image preview"></div>
-                            <div class="file-card-info">
-                                <div class="file-card-name" id="compressorFileName"></div>
-                                <div class="file-card-meta">
-                                    <span id="compressorFileSize"></span>
-                                    <span class="meta-dot"></span>
-                                    <span id="compressorFileType"></span>
-                                </div>
-                                <div class="file-card-dims" id="compressorDims"></div>
-                            </div>
-                            <button class="file-card-remove" id="compressorRemove" aria-label="Remove file"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-                        </div>
-                        <div class="tool-controls hidden" id="compressorControls">
-                            <div class="control-group">
-                                <label class="control-label" for="compressorQuality">
-                                    Compression Quality: <span id="compressorQualityValue">80</span>%
-                                </label>
-                                <input type="range" class="control-range" id="compressorQuality" min="5" max="100" value="80">
-                            </div>
-                            <button class="btn btn-primary btn-lg btn-full" id="compressorCompress">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-                                Compress Image
-                            </button>
-                        </div>
-                        <div class="processing-state hidden" id="compressorProcessing">
-                            <div class="processing-spinner"></div>
-                            <p class="processing-text">Compressing image...</p>
-                        </div>
-                        <div class="result-card hidden" id="compressorResult">
-                            <div class="compare-grid">
-                                <div class="compare-item">
-                                    <span class="compare-label">Original</span>
-                                    <img id="compressorOrigImg" alt="Original">
-                                    <span class="compare-size" id="compressorOrigSize"></span>
-                                </div>
-                                <div class="compare-item">
-                                    <span class="compare-label">Compressed</span>
-                                    <img id="compressorCompImg" alt="Compressed">
-                                    <span class="compare-size" id="compressorCompSize"></span>
-                                </div>
-                            </div>
-                            <div class="result-info">
-                                <div class="result-badge success" id="compressorReduction"></div>
-                                <div class="result-actions">
-                                    <button class="btn btn-primary" id="compressorDownload"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download</button>
-                                    <button class="btn btn-outline" id="compressorReset">Compress Another</button>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="result-footer">
+                        <button class="btn btn-outline btn-sm" id="pdfEditReset">Edit Another</button>
+                        <button class="btn btn-pdf" id="pdfEditDownload">Download Modified PDF</button>
                     </div>
                 </div>
-
-                <!-- ==================== IMAGE TO PDF ==================== -->
-                <div class="tool-panel" id="panel-pdf">
-                    <div class="tool-header">
-                        <h1 class="tool-title">Image to PDF</h1>
-                        <p class="tool-desc">Combine multiple images into a single downloadable PDF document.</p>
-                    </div>
-                    <div class="tool-body">
-                        <div class="upload-zone" id="pdfUpload" role="button" tabindex="0" aria-label="Upload images for PDF">
-                            <input type="file" id="pdfFileInput" accept="image/*" multiple class="sr-only">
-                            <div class="upload-zone-content">
-                                <div class="upload-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
-                                <p class="upload-text">Drag & drop your images here</p>
-                                <p class="upload-subtext">or <span class="upload-browse">browse files</span></p>
-                                <p class="upload-formats">Supports PNG, JPG, WEBP — select multiple files</p>
-                            </div>
-                        </div>
-                        <!-- Multi-file list -->
-                        <div class="file-list hidden" id="pdfFileList">
-                            <div class="file-list-header">
-                                <h3 class="file-list-title">Images (<span id="pdfCount">0</span>)</h3>
-                                <button class="btn btn-ghost btn-sm" id="pdfAddMore">+ Add More</button>
-                                <input type="file" id="pdfAddInput" accept="image/*" multiple class="sr-only">
-                            </div>
-                            <div class="file-list-items" id="pdfListItems"></div>
-                            <div class="control-group">
-                                <label class="control-label" for="pdfOrientation">Page Orientation</label>
-                                <div class="radio-group">
-                                    <label class="radio-label"><input type="radio" name="pdfOrientation" value="portrait" checked> Portrait</label>
-                                    <label class="radio-label"><input type="radio" name="pdfOrientation" value="landscape"> Landscape</label>
-                                </div>
-                            </div>
-                            <button class="btn btn-primary btn-lg btn-full" id="pdfGenerate">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                                Generate PDF
-                            </button>
-                        </div>
-                        <div class="processing-state hidden" id="pdfProcessing">
-                            <div class="processing-spinner"></div>
-                            <p class="processing-text">Generating PDF...</p>
-                        </div>
-                        <div class="result-card hidden" id="pdfResult">
-                            <div class="result-info">
-                                <div class="result-badge success">PDF generated</div>
-                                <div class="result-details">
-                                    <div class="result-row"><span class="result-label">Pages</span><span class="result-value" id="pdfPages"></span></div>
-                                    <div class="result-row"><span class="result-label">Size</span><span class="result-value" id="pdfSize"></span></div>
-                                </div>
-                                <div class="result-actions">
-                                    <button class="btn btn-primary" id="pdfDownload"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download PDF</button>
-                                    <button class="btn btn-outline" id="pdfReset">Start Over</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ==================== IMAGE CROPPER ==================== -->
-                <div class="tool-panel" id="panel-cropper">
-                    <div class="tool-header">
-                        <h1 class="tool-title">Image Cropper</h1>
-                        <p class="tool-desc">Crop images with free or preset aspect ratios, rotate, and zoom.</p>
-                    </div>
-                    <div class="tool-body">
-                        <div class="upload-zone" id="cropperUpload" role="button" tabindex="0" aria-label="Upload image for cropping">
-                            <input type="file" id="cropperFileInput" accept="image/*" class="sr-only">
-                            <div class="upload-zone-content">
-                                <div class="upload-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
-                                <p class="upload-text">Drag & drop your image here</p>
-                                <p class="upload-subtext">or <span class="upload-browse">browse files</span></p>
-                                <p class="upload-formats">Supports PNG, JPG, WEBP, GIF, BMP</p>
-                            </div>
-                        </div>
-                        <div class="file-card hidden" id="cropperFileCard">
-                            <div class="file-card-preview"><img id="cropperPreview" alt="Image preview"></div>
-                            <div class="file-card-info">
-                                <div class="file-card-name" id="cropperFileName"></div>
-                                <div class="file-card-meta">
-                                    <span id="cropperFileSize"></span>
-                                    <span class="meta-dot"></span>
-                                    <span id="cropperFileType"></span>
-                                </div>
-                            </div>
-                            <button class="file-card-remove" id="cropperRemove" aria-label="Remove file"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-                        </div>
-                        <div class="tool-controls hidden" id="cropperControls">
-                            <div class="control-group">
-                                <label class="control-label">Aspect Ratio</label>
-                                <div class="preset-grid">
-                                    <button class="preset-btn active" data-ratio="free">Free</button>
-                                    <button class="preset-btn" data-ratio="1:1">1:1</button>
-                                    <button class="preset-btn" data-ratio="16:9">16:9</button>
-                                    <button class="preset-btn" data-ratio="4:3">4:3</button>
-                                    <button class="preset-btn" data-ratio="3:2">3:2</button>
-                                    <button class="preset-btn" data-ratio="9:16">9:16</button>
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <label class="control-label" for="cropperZoom">Zoom: <span id="cropperZoomValue">100</span>%</label>
-                                <input type="range" class="control-range" id="cropperZoom" min="50" max="300" value="100">
-                            </div>
-                            <div class="control-row">
-                                <button class="btn btn-outline" id="cropperRotate">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
-                                    Rotate 90°
-                                </button>
-                                <button class="btn btn-outline" id="cropperResetCrop">Reset</button>
-                            </div>
-                            <button class="btn btn-primary btn-lg btn-full" id="cropperCrop">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.13 1L6 16a2 2 0 0 0 2 2h15"/><path d="M1 6.13L16 6a2 2 0 0 1 2 2v15"/></svg>
-                                Crop Image
-                            </button>
-                        </div>
-                        <div class="cropper-canvas-wrap hidden" id="cropperCanvasWrap">
-                            <canvas id="cropperCanvas"></canvas>
-                            <div class="crop-overlay" id="cropOverlay">
-                                <div class="crop-box" id="cropBox">
-                                    <div class="crop-handle crop-handle-nw" data-handle="nw"></div>
-                                    <div class="crop-handle crop-handle-ne" data-handle="ne"></div>
-                                    <div class="crop-handle crop-handle-sw" data-handle="sw"></div>
-                                    <div class="crop-handle crop-handle-se" data-handle="se"></div>
-                                    <div class="crop-handle crop-handle-n" data-handle="n"></div>
-                                    <div class="crop-handle crop-handle-s" data-handle="s"></div>
-                                    <div class="crop-handle crop-handle-e" data-handle="e"></div>
-                                    <div class="crop-handle crop-handle-w" data-handle="w"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="processing-state hidden" id="cropperProcessing">
-                            <div class="processing-spinner"></div>
-                            <p class="processing-text">Cropping image...</p>
-                        </div>
-                        <div class="result-card hidden" id="cropperResult">
-                            <div class="result-preview"><img id="cropperResultPreview" alt="Cropped image"></div>
-                            <div class="result-info">
-                                <div class="result-badge success">Crop complete</div>
-                                <div class="result-details">
-                                    <div class="result-row"><span class="result-label">Original</span><span class="result-value" id="cropperOrigInfo"></span></div>
-                                    <div class="result-row"><span class="result-label">Cropped</span><span class="result-value" id="cropperOutInfo"></span></div>
-                                    <div class="result-row"><span class="result-label">Size</span><span class="result-value" id="cropperSizeInfo"></span></div>
-                                </div>
-                                <div class="result-actions">
-                                    <button class="btn btn-primary" id="cropperDownload"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download</button>
-                                    <button class="btn btn-outline" id="cropperResetAll">Crop Another</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ==================== FILE SIZE REDUCER ==================== -->
-                <div class="tool-panel" id="panel-reducer">
-                    <div class="tool-header">
-                        <h1 class="tool-title">File Size Reducer</h1>
-                        <p class="tool-desc">Reduce file sizes for supported formats. See estimated savings before downloading.</p>
-                    </div>
-                    <div class="tool-body">
-                        <div class="upload-zone" id="reducerUpload" role="button" tabindex="0" aria-label="Upload file to reduce size">
-                            <input type="file" id="reducerFileInput" accept="image/*" class="sr-only">
-                            <div class="upload-zone-content">
-                                <div class="upload-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
-                                <p class="upload-text">Drag & drop your file here</p>
-                                <p class="upload-subtext">or <span class="upload-browse">browse files</span></p>
-                                <p class="upload-formats">Currently supports image compression (PNG, JPG, WEBP)</p>
-                            </div>
-                        </div>
-                        <div class="file-card hidden" id="reducerFileCard">
-                            <div class="file-card-preview"><img id="reducerPreview" alt="File preview"></div>
-                            <div class="file-card-info">
-                                <div class="file-card-name" id="reducerFileName"></div>
-                                <div class="file-card-meta">
-                                    <span id="reducerFileSize"></span>
-                                    <span class="meta-dot"></span>
-                                    <span id="reducerFileType"></span>
-                                </div>
-                            </div>
-                            <button class="file-card-remove" id="reducerRemove" aria-label="Remove file"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-                        </div>
-                        <div class="tool-controls hidden" id="reducerControls">
-                            <div class="control-group">
-                                <label class="control-label" for="reducerQuality">
-                                    Compression Level: <span id="reducerQualityValue">70</span>%
-                                </label>
-                                <input type="range" class="control-range" id="reducerQuality" min="5" max="100" value="70">
-                            </div>
-                            <div class="compression-preview hidden" id="reducerEstimate">
-                                <div class="estimate-row">
-                                    <span class="estimate-label">Original</span>
-                                    <span class="estimate-value" id="reducerOrigEst"></span>
-                                </div>
-                                <div class="estimate-row">
-                                    <span class="estimate-label">Estimated output</span>
-                                    <span class="estimate-value" id="reducerOutEst"></span>
-                                </div>
-                                <div class="estimate-row estimate-highlight">
-                                    <span class="estimate-label">Savings</span>
-                                    <span class="estimate-value" id="reducerSavingsEst"></span>
-                                </div>
-                            </div>
-                            <button class="btn btn-primary btn-lg btn-full" id="reducerCompress">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-                                Reduce File Size
-                            </button>
-                        </div>
-                        <div class="processing-state hidden" id="reducerProcessing">
-                            <div class="processing-spinner"></div>
-                            <p class="processing-text">Reducing file size...</p>
-                        </div>
-                        <div class="result-card hidden" id="reducerResult">
-                            <div class="result-info">
-                                <div class="result-badge success" id="reducerReduction"></div>
-                                <div class="result-details">
-                                    <div class="result-row"><span class="result-label">Original</span><span class="result-value" id="reducerOrigInfo"></span></div>
-                                    <div class="result-row"><span class="result-label">Reduced</span><span class="result-value" id="reducerOutInfo"></span></div>
-                                    <div class="result-row"><span class="result-label">Saved</span><span class="result-value" id="reducerSavedInfo"></span></div>
-                                </div>
-                                <div class="result-actions">
-                                    <button class="btn btn-primary" id="reducerDownload"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download</button>
-                                    <button class="btn btn-outline" id="reducerReset">Reduce Another</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ==================== FILE INFORMATION ==================== -->
-                <div class="tool-panel" id="panel-fileinfo">
-                    <div class="tool-header">
-                        <h1 class="tool-title">File Information</h1>
-                        <p class="tool-desc">View detailed information about any file — size, type, dimensions, and metadata.</p>
-                    </div>
-                    <div class="tool-body">
-                        <div class="upload-zone" id="infoUpload" role="button" tabindex="0" aria-label="Upload file to inspect">
-                            <input type="file" id="infoFileInput" class="sr-only">
-                            <div class="upload-zone-content">
-                                <div class="upload-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
-                                <p class="upload-text">Drag & drop any file here</p>
-                                <p class="upload-subtext">or <span class="upload-browse">browse files</span></p>
-                                <p class="upload-formats">Any file type supported</p>
-                            </div>
-                        </div>
-                        <div class="file-card hidden" id="infoFileCard">
-                            <div class="file-card-preview" id="infoPreviewWrap"><img id="infoPreview" alt="File preview"></div>
-                            <div class="file-card-info">
-                                <div class="file-card-name" id="infoFileName"></div>
-                                <div class="file-card-meta">
-                                    <span id="infoFileSize"></span>
-                                    <span class="meta-dot"></span>
-                                    <span id="infoFileType"></span>
-                                </div>
-                            </div>
-                            <button class="file-card-remove" id="infoRemove" aria-label="Remove file"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-                        </div>
-                        <div class="info-table hidden" id="infoTable">
-                            <div class="info-row"><span class="info-label">Filename</span><span class="info-value" id="infoName"></span></div>
-                            <div class="info-row"><span class="info-label">File Type</span><span class="info-value" id="infoType"></span></div>
-                            <div class="info-row"><span class="info-label">MIME Type</span><span class="info-value" id="infoMime"></span></div>
-                            <div class="info-row"><span class="info-label">Extension</span><span class="info-value" id="infoExt"></span></div>
-                            <div class="info-row"><span class="info-label">File Size</span><span class="info-value" id="infoSize"></span></div>
-                            <div class="info-row"><span class="info-label">Last Modified</span><span class="info-value" id="infoModified"></span></div>
-                            <div class="info-row" id="infoDimsRow" style="display:none"><span class="info-label">Dimensions</span><span class="info-value" id="infoDims"></span></div>
-                            <button class="btn btn-outline btn-sm" id="infoCopy" style="margin-top:1rem">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                                Copy Information
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
-            <!-- Footer -->
-            <footer class="footer footer-tools">
-                <div class="footer-bottom">
-                    <p>Made for the web. Built around privacy.</p>
-                    <p class="footer-copy">FileForge — Simple tools. Private processing.</p>
+            <!-- ==========================================
+                 PANEL 11: PDF SPLITTER & EXTRACTOR
+                 ========================================== -->
+            <div class="tool-panel" id="panel-pdfsplit">
+                <div class="tool-header">
+                    <h1 class="tool-title">PDF Splitter & Page Extractor</h1>
+                    <p class="tool-desc">Extract selected pages into a new PDF, remove unwanted pages, or split every page into separate files.</p>
                 </div>
-            </footer>
+
+                <div class="dropzone" id="pdfSplitUpload">
+                    <input type="file" id="pdfSplitFileInput" accept="application/pdf,.pdf" class="hidden">
+                    <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color: var(--accent-pdf);"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+                    <div class="dropzone-text">Click to choose or drag a PDF here to split</div>
+                    <div class="dropzone-sub">Interactive visual page selector</div>
+                </div>
+
+                <div class="file-card hidden" id="pdfSplitFileCard">
+                    <div class="file-card-info">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--accent-pdf);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        <div class="file-card-meta">
+                            <div class="file-card-name" id="pdfSplitFileName">document.pdf</div>
+                            <div class="file-card-stats" id="pdfSplitFileSize">0 KB</div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-outline" id="pdfSplitRemove">Remove</button>
+                </div>
+
+                <div class="controls-panel hidden" id="pdfSplitControls">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 16px;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="badge badge-info" id="pdfSplitSelectedCount">0 selected</span>
+                            <button type="button" class="btn btn-sm btn-ghost" id="pdfSplitSelectAll">Select All</button>
+                            <button type="button" class="btn btn-sm btn-ghost" id="pdfSplitDeselectAll">Deselect All</button>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <label class="form-label" for="pdfSplitRange" style="margin: 0;">Page Range:</label>
+                            <input type="text" class="input-text mono" id="pdfSplitRange" placeholder="e.g. 1-3, 5" style="width: 140px; padding: 4px 8px; font-size: 0.85rem;">
+                        </div>
+                    </div>
+
+                    <!-- Thumbnails Grid -->
+                    <div class="pdf-thumb-grid" id="pdfSplitPageGrid"></div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-subtle);">
+                        <button type="button" class="btn btn-outline btn-sm" id="pdfSplitAllBtn">Split All into ZIP</button>
+                        <div style="display: flex; gap: 10px;">
+                            <button type="button" class="btn btn-outline text-error" id="pdfSplitDeleteBtn">Delete Selected Pages</button>
+                            <button type="button" class="btn btn-pdf" id="pdfSplitExtractBtn">Extract Selected Pages</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controls-panel hidden" id="pdfSplitProcessing" style="text-align: center; padding: 40px;">
+                    <div id="pdfSplitProgressText" style="font-weight: 600;">Splitting PDF...</div>
+                </div>
+
+                <div class="result-card hidden" id="pdfSplitResult">
+                    <div style="text-align: center; padding: 32px 16px;">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--success); margin-bottom: 12px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 6px;">Extraction Complete</h3>
+                        <p class="text-muted text-sm" id="pdfSplitResultDetails">New PDF generated successfully.</p>
+                    </div>
+                    <div class="result-footer">
+                        <button class="btn btn-outline btn-sm" id="pdfSplitReset">Split Another</button>
+                        <button class="btn btn-pdf" id="pdfSplitDownload">Download Document</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 PANEL 12: PDF TO IMAGES
+                 ========================================== -->
+            <div class="tool-panel" id="panel-pdftoimg">
+                <div class="tool-header">
+                    <h1 class="tool-title">PDF to Images Converter</h1>
+                    <p class="tool-desc">Render each page of a PDF file into crisp PNG or JPEG images at standard or high retina resolutions.</p>
+                </div>
+
+                <div class="dropzone" id="pdfToImgUpload">
+                    <input type="file" id="pdfToImgFileInput" accept="application/pdf,.pdf" class="hidden">
+                    <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color: var(--accent-pdf);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><circle cx="10" cy="13" r="1.5"/><polyline points="16 17 13 14 10 17"/></svg>
+                    <div class="dropzone-text">Click to choose or drag a PDF here</div>
+                    <div class="dropzone-sub">Converts pages to PNG or JPEG with ZIP download</div>
+                </div>
+
+                <div class="file-card hidden" id="pdfToImgFileCard">
+                    <div class="file-card-info">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--accent-pdf);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        <div class="file-card-meta">
+                            <div class="file-card-name" id="pdfToImgFileName">document.pdf</div>
+                            <div class="file-card-stats" id="pdfToImgFileSize">0 KB</div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-outline" id="pdfToImgRemove">Remove</button>
+                </div>
+
+                <div class="controls-panel hidden" id="pdfToImgControls">
+                    <div class="controls-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="pdfToImgFormat">Output Format</label>
+                            <select class="select-input" id="pdfToImgFormat">
+                                <option value="image/png" selected>PNG (Lossless & Crisp)</option>
+                                <option value="image/jpeg">JPEG (Compressed)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="pdfToImgScale">Rendering DPI / Scale</label>
+                            <select class="select-input" id="pdfToImgScale">
+                                <option value="1.5" selected>Standard (150 DPI)</option>
+                                <option value="2.0">High Resolution (200 DPI)</option>
+                                <option value="3.0">Ultra High-Res (300 DPI Retina)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: flex-end; margin-top: 14px;">
+                        <button class="btn btn-pdf" id="pdfToImgConvertBtn">Convert Pages to Images</button>
+                    </div>
+                </div>
+
+                <div class="controls-panel hidden" id="pdfToImgProcessing" style="text-align: center; padding: 40px;">
+                    <div id="pdfToImgProgressText" style="font-weight: 600; margin-bottom: 12px;">Rendering pages...</div>
+                    <div style="width: 100%; max-width: 300px; height: 6px; background: var(--bg-surface-elevated); border-radius: 3px; margin: 0 auto; overflow: hidden;">
+                        <div id="pdfToImgProgressFill" style="width: 0%; height: 100%; background: var(--accent-pdf); transition: width 150ms ease;"></div>
+                    </div>
+                </div>
+
+                <div class="result-card hidden" id="pdfToImgResult">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <h3 style="font-size: 1.1rem; font-weight: 700;">Rendered Page Images</h3>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline btn-sm" id="pdfToImgReset">Convert Another</button>
+                            <button class="btn btn-pdf btn-sm" id="pdfToImgDownloadZip">Download All as ZIP</button>
+                        </div>
+                    </div>
+                    <div class="pdf-gallery-grid" id="pdfToImgGallery"></div>
+                </div>
+            </div>
         </main>
     </div>
 
-    <!-- Toast Container -->
-    <div class="toast-container" id="toastContainer"></div>
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
 
-    <!-- jsPDF for PDF generation -->
+    <!-- Verified Client-Side Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- App Engine & Utilities -->
     <script src="js/utils.js"></script>
     <script src="js/app.js"></script>
-    <script src="js/scene.js"></script>
+
+    <!-- Image Tools -->
     <script src="js/image-converter.js"></script>
     <script src="js/image-resizer.js"></script>
     <script src="js/image-compressor.js"></script>
+    <script src="js/file-reducer.js"></script>
     <script src="js/image-cropper.js"></script>
     <script src="js/image-pdf.js"></script>
     <script src="js/file-info.js"></script>
-    <script src="js/file-reducer.js"></script>
+
+    <!-- PDF Tools -->
+    <script src="js/pdf-merger.js"></script>
+    <script src="js/pdf-compressor.js"></script>
+    <script src="js/pdf-editor.js"></script>
+    <script src="js/pdf-splitter.js"></script>
+    <script src="js/pdf-to-image.js"></script>
 </body>
+
 </html>

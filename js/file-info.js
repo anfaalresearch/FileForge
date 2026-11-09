@@ -1,31 +1,32 @@
-/* ==========================================
-   FileForge — File Information
-   ========================================== */
+/* ==========================================================================
+   FileForge — File Information & EXIF Privacy Inspector
+   Inspects metadata and offers 1-click EXIF metadata stripping.
+   ========================================================================== */
 
 (function () {
     'use strict';
 
     const $ = (sel) => document.querySelector(sel);
 
-    const upload     = $('#infoUpload');
-    const fileInput  = $('#infoFileInput');
-    const fileCard   = $('#infoFileCard');
-    const previewWrap = $('#infoPreviewWrap');
-    const preview    = $('#infoPreview');
-    const fileName   = $('#infoFileName');
-    const fileSize   = $('#infoFileSize');
-    const fileType   = $('#infoFileType');
-    const removeBtn  = $('#infoRemove');
-    const infoTable  = $('#infoTable');
-    const infoName   = $('#infoName');
-    const infoType   = $('#infoType');
-    const infoMime   = $('#infoMime');
-    const infoExt    = $('#infoExt');
-    const infoSize   = $('#infoSize');
+    const upload = $('#infoUpload');
+    const fileInput = $('#infoFileInput');
+    const fileCard = $('#infoFileCard');
+    const preview = $('#infoPreview');
+    const fileName = $('#infoFileName');
+    const fileSize = $('#infoFileSize');
+    const fileType = $('#infoFileType');
+    const removeBtn = $('#infoRemove');
+    const infoTable = $('#infoTable');
+    const infoName = $('#infoName');
+    const infoType = $('#infoType');
+    const infoMime = $('#infoMime');
+    const infoExt = $('#infoExt');
+    const infoSize = $('#infoSize');
     const infoModified = $('#infoModified');
     const infoDimsRow = $('#infoDimsRow');
-    const infoDims   = $('#infoDims');
-    const copyBtn    = $('#infoCopy');
+    const infoDims = $('#infoDims');
+    const copyBtn = $('#infoCopy');
+    const stripExifBtn = $('#infoStripExif');
 
     let currentFile = null;
 
@@ -38,8 +39,39 @@
             if (!currentFile) return;
             const text = buildInfoText();
             navigator.clipboard.writeText(text)
-                .then(() => FF.toast('Information copied to clipboard!', 'success'))
-                .catch(() => FF.toast('Could not copy — please copy manually.', 'warning'));
+                .then(() => FF.toast('Metadata copied to clipboard!', 'success'))
+                .catch(() => FF.toast('Could not copy to clipboard.', 'warning'));
+        });
+    }
+
+    if (stripExifBtn) {
+        stripExifBtn.addEventListener('click', async () => {
+            if (!currentFile || !currentFile.type.startsWith('image/')) {
+                FF.toast('Metadata stripping is available for image files.', 'warning');
+                return;
+            }
+            try {
+                const img = await FF.loadImage(currentFile);
+                const canvas = document.createElement('canvas');
+                canvas.width = img.naturalWidth;
+                canvas.height = img.naturalHeight;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+
+                const mime = currentFile.type === 'image/png' ? 'image/png' : 'image/jpeg';
+                canvas.toBlob((cleanBlob) => {
+                    if (!cleanBlob) {
+                        FF.toast('Failed to sanitize image.', 'error');
+                        return;
+                    }
+                    const ext = FF.mimeToExt(mime);
+                    const cleanName = FF.changeExt(currentFile.name, `clean.${ext}`);
+                    FF.downloadBlob(cleanBlob, cleanName);
+                    FF.toast('Sanitized image downloaded! All EXIF and GPS tags removed.', 'success');
+                }, mime, 0.95);
+            } catch (err) {
+                FF.toast(err.message || 'Failed to sanitize image.', 'error');
+            }
         });
     }
 
@@ -72,37 +104,33 @@
 
     function handleFile(file) {
         if (!file) return;
-        if (file.size > 500 * 1024 * 1024) {
-            FF.toast('File is too large to inspect (max 500MB).', 'error');
-            return;
-        }
 
         currentFile = file;
         fileName.textContent = file.name;
         fileSize.textContent = FF.formatFileSize(file.size);
         fileType.textContent = friendlyType(file);
 
-        // Populate info table
-        infoName.textContent     = file.name;
-        infoType.textContent     = friendlyType(file);
-        infoMime.textContent     = file.type || 'Unknown';
-        infoExt.textContent      = (FF.getFileExtension(file.name) || 'none').toUpperCase();
-        infoSize.textContent     = FF.formatFileSize(file.size) + ' (' + file.size.toLocaleString() + ' bytes)';
+        infoName.textContent = file.name;
+        infoType.textContent = friendlyType(file);
+        infoMime.textContent = file.type || 'Unknown';
+        infoExt.textContent = (FF.getFileExtension(file.name) || 'none').toUpperCase();
+        infoSize.textContent = FF.formatFileSize(file.size) + ' (' + file.size.toLocaleString() + ' bytes)';
         infoModified.textContent = formatDate(file.lastModified);
-        infoDimsRow.style.display = 'none';
+        if (infoDimsRow) infoDimsRow.style.display = 'none';
 
-        // Preview for images
         if (file.type.startsWith('image/')) {
             const url = URL.createObjectURL(file);
             preview.src = url;
             preview.style.display = '';
             preview.onload = () => {
-                infoDimsRow.style.display = '';
-                infoDims.textContent = preview.naturalWidth + ' × ' + preview.naturalHeight + ' px';
+                if (infoDimsRow) infoDimsRow.style.display = '';
+                const ratio = (preview.naturalWidth / preview.naturalHeight).toFixed(2);
+                infoDims.textContent = `${preview.naturalWidth} × ${preview.naturalHeight} px (Ratio ${ratio}:1)`;
             };
+            if (stripExifBtn) FF.show(stripExifBtn);
         } else {
             preview.style.display = 'none';
-            preview.src = '';
+            if (stripExifBtn) FF.hide(stripExifBtn);
         }
 
         FF.hide(upload);
@@ -113,13 +141,10 @@
     function resetTool() {
         currentFile = null;
         fileInput.value = '';
-
+        if (preview.src) URL.revokeObjectURL(preview.src);
+        preview.style.display = 'none';
         FF.hide(fileCard);
         FF.hide(infoTable);
         FF.show(upload);
-
-        if (preview.src) URL.revokeObjectURL(preview.src);
-        preview.src = '';
     }
-
 })();
