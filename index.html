@@ -419,14 +419,20 @@
 
         // Theme toggle - Default pure white light theme
         function initTheme() {
-            const saved = localStorage.getItem('ff-theme') || 'light';
-            html.setAttribute('data-theme', saved);
+            let theme = localStorage.getItem('ff-theme-v2');
+            if (!theme) {
+                theme = 'light';
+                localStorage.setItem('ff-theme-v2', 'light');
+                localStorage.removeItem('ff-theme');
+            }
+            html.setAttribute('data-theme', theme);
         }
         if (themeToggle) {
             themeToggle.addEventListener('click', () => {
-                const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                const current = html.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
                 html.setAttribute('data-theme', next);
-                localStorage.setItem('ff-theme', next);
+                localStorage.setItem('ff-theme-v2', next);
             });
         }
         initTheme();

@@ -13,13 +13,17 @@
 
     function setTheme(theme) {
         html.setAttribute('data-theme', theme);
-        localStorage.setItem('ff-theme', theme);
+        localStorage.setItem('ff-theme-v2', theme);
     }
 
     function initTheme() {
-        const saved = localStorage.getItem('ff-theme');
-        // Default to clean white/light theme without gradient
-        setTheme(saved || 'light');
+        let theme = localStorage.getItem('ff-theme-v2');
+        if (!theme) {
+            theme = 'light';
+            localStorage.setItem('ff-theme-v2', 'light');
+            localStorage.removeItem('ff-theme');
+        }
+        setTheme(theme);
     }
 
     if (themeToggle) {
