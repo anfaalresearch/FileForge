@@ -27,6 +27,7 @@
     let mergedPdfBlob = null;
 
     FF.setupDropZone(upload, fileInput, handleFiles);
+    if (window.FF && FF.registerToolHandler) FF.registerToolHandler('pdfmerge', handleFiles);
 
     if (addMoreBtn) {
         addMoreBtn.addEventListener('click', () => {

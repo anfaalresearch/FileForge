@@ -47,6 +47,7 @@
 
     // Dropzone setup with multiple file support
     FF.setupDropZone(upload, fileInput, handleFiles);
+    if (window.FF && FF.registerToolHandler) FF.registerToolHandler('converter', handleFiles);
 
     // Format changes
     if (formatSelect) {

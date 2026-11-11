@@ -44,6 +44,7 @@
     let drag = null; // { type: 'move'|handle, startX, startY, startRect }
 
     FF.setupDropZone(upload, fileInput, handleFile);
+    if (window.FF && FF.registerToolHandler) FF.registerToolHandler('cropper', handleFile);
 
     // Aspect ratio preset buttons
     document.querySelectorAll('#cropperControls .preset-btn').forEach(btn => {

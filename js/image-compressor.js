@@ -39,6 +39,7 @@
     let resultBlob = null;
 
     FF.setupDropZone(upload, fileInput, handleFile);
+    if (window.FF && FF.registerToolHandler) FF.registerToolHandler('compressor', handleFile);
 
     if (qualitySlider && qualityValue) {
         qualitySlider.addEventListener('input', () => {

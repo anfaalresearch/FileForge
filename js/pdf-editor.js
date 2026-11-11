@@ -79,6 +79,7 @@
     let pageNumberConfig = null; // { format, position }
 
     FF.setupDropZone(upload, fileInput, handleFile);
+    if (window.FF && FF.registerToolHandler) FF.registerToolHandler('pdfedit', handleFile);
 
     // Tab switching
     const tabs = [

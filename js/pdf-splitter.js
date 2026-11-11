@@ -43,6 +43,7 @@
     let resultFilename = 'split_document.pdf';
 
     FF.setupDropZone(upload, fileInput, handleFile);
+    if (window.FF && FF.registerToolHandler) FF.registerToolHandler('pdfsplit', handleFile);
 
     if (selectAllBtn) {
         selectAllBtn.addEventListener('click', () => {

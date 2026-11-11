@@ -37,6 +37,7 @@
     let resultBlob = null;
 
     FF.setupDropZone(upload, fileInput, handleFile);
+    if (window.FF && FF.registerToolHandler) FF.registerToolHandler('reducer', handleFile);
 
     // Preset pills (e.g. 50KB, 100KB, 200KB, 500KB, 1MB)
     document.querySelectorAll('#reducerControls .target-preset-btn').forEach(btn => {

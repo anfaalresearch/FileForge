@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
@@ -837,24 +837,43 @@
                 </div>
 
                 <div class="controls-panel hidden" id="pdfCompressControls">
-                    <div class="controls-grid">
-                        <div class="form-group">
-                            <label class="form-label" for="pdfCompressProfile">Compression Profile</label>
-                            <select class="select-input" id="pdfCompressProfile">
-                                <option value="balanced" selected>Recommended / Balanced (150 DPI)</option>
-                                <option value="extreme">Extreme Compression (Smallest Size, 100 DPI)</option>
-                                <option value="light">High Quality (Crisp Text, 200 DPI)</option>
-                                <option value="custom">Custom Quality</option>
-                            </select>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label class="form-label" for="pdfCompressMode">Optimization Engine</label>
+                        <select class="select-input" id="pdfCompressMode">
+                            <option value="vector" selected>⚡ Smart Vector & Stream Optimizer (Recommended for Notes, Text, & E-books — Zero Loss, Instant)</option>
+                            <option value="scanned">🖼️ Scanned Document Mode (Downsamples Raster Pages / Scans)</option>
+                        </select>
+                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;" id="pdfCompressModeHelp">
+                            Preserves text clarity, vector graphics, and fonts while compressing cross-references and stream objects.
+                        </div>
+                    </div>
+
+                    <!-- Scanned Mode Specific Controls -->
+                    <div class="hidden" id="pdfCompressScannedControls" style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 16px; margin-bottom: 18px;">
+                        <div class="controls-grid" style="margin-bottom: 12px;">
+                            <div class="form-group">
+                                <label class="form-label" for="pdfCompressProfile">DPI Resolution</label>
+                                <select class="select-input" id="pdfCompressProfile">
+                                    <option value="low">72 DPI — Maximum Reduction (Email / Web)</option>
+                                    <option value="balanced" selected>100 DPI — Balanced</option>
+                                    <option value="high">150 DPI — Print Quality</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="pdfCompressRange">Page Range to Process</label>
+                                <input type="text" class="input-text mono" id="pdfCompressRange" placeholder="All pages (or e.g. 1-20, 35)">
+                                <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">Leave blank for all pages</div>
+                            </div>
                         </div>
 
-                        <div class="form-group hidden" id="pdfCompressCustomGroup">
+                        <div class="form-group">
                             <div style="display: flex; justify-content: space-between;">
-                                <label class="form-label">JPEG Quality</label>
-                                <span class="slider-val-badge" id="pdfCompressQualityVal">70%</span>
+                                <label class="form-label">Image Quality</label>
+                                <span class="slider-val-badge" id="pdfCompressQualityVal">65%</span>
                             </div>
                             <div class="range-slider-wrap">
-                                <input type="range" id="pdfCompressQuality" min="20" max="95" value="70">
+                                <input type="range" id="pdfCompressQuality" min="20" max="90" value="65">
                             </div>
                         </div>
                     </div>
@@ -869,21 +888,23 @@
                     <div style="width: 100%; max-width: 300px; height: 6px; background: var(--bg-surface-elevated); border-radius: 3px; margin: 0 auto; overflow: hidden;">
                         <div id="pdfCompressProgressFill" style="width: 0%; height: 100%; background: var(--accent-pdf); transition: width 150ms ease;"></div>
                     </div>
+                    <button type="button" class="btn btn-outline btn-sm" id="pdfCompressCancel" style="margin-top: 18px;">Cancel</button>
                 </div>
 
                 <div class="result-card hidden" id="pdfCompressResult">
                     <div style="text-align: center; padding: 28px 16px;">
-                        <div style="font-size: 1.3rem; font-weight: 700; margin-bottom: 8px;">PDF Compressed!</div>
+                        <div style="font-size: 1.3rem; font-weight: 700; margin-bottom: 6px;" id="pdfCompressResultTitle">PDF Compressed!</div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px; max-width: 500px; margin-left: auto; margin-right: auto;" id="pdfCompressResultMsg"></div>
                         <div style="display: flex; justify-content: center; gap: 20px; font-size: 0.95rem; margin-bottom: 14px;">
                             <div>Original: <strong class="mono" id="pdfCompressOrigSize">0 KB</strong></div>
                             <div>→</div>
-                            <div>New: <strong class="mono text-success" id="pdfCompressCompSize">0 KB</strong></div>
+                            <div>Result: <strong class="mono" id="pdfCompressCompSize">0 KB</strong></div>
                         </div>
                         <span class="badge badge-success" id="pdfCompressReduction">Saved 0%</span>
                     </div>
                     <div class="result-footer">
                         <button class="btn btn-outline btn-sm" id="pdfCompressReset">Compress Another</button>
-                        <button class="btn btn-pdf" id="pdfCompressDownload">Download Compressed PDF</button>
+                        <button class="btn btn-pdf" id="pdfCompressDownload">Download Optimized PDF</button>
                     </div>
                 </div>
             </div>

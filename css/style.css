@@ -5,7 +5,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
-/* ---------- Tokens: Light Mode ---------- */
+/* ---------- Tokens: Light Mode (Default Pure White Theme) ---------- */
 :root {
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
@@ -14,35 +14,35 @@
   --bg-surface: #ffffff;
   --bg-surface-elevated: #f1f5f9;
   --bg-subtle: #e2e8f0;
-  --bg-overlay: rgba(15, 23, 42, 0.4);
+  --bg-overlay: rgba(15, 23, 42, 0.45);
 
   --text-main: #0f172a;
-  --text-muted: #64748b;
-  --text-dim: #94a3b8;
+  --text-muted: #475569;
+  --text-dim: #64748b;
   --text-inverse: #ffffff;
 
-  --border-subtle: rgba(15, 23, 42, 0.08);
-  --border-strong: rgba(15, 23, 42, 0.16);
+  --border-subtle: #e2e8f0;
+  --border-strong: #cbd5e1;
   --border-focus: #2563eb;
 
   --accent-primary: #2563eb;
   --accent-primary-hover: #1d4ed8;
-  --accent-primary-subtle: rgba(37, 99, 235, 0.08);
+  --accent-primary-subtle: #eff6ff;
 
   --accent-pdf: #e11d48;
   --accent-pdf-hover: #be123c;
-  --accent-pdf-subtle: rgba(225, 29, 72, 0.08);
+  --accent-pdf-subtle: #fff1f2;
 
   --success: #059669;
-  --success-subtle: rgba(5, 150, 105, 0.1);
+  --success-subtle: #ecfdf5;
   --warning: #d97706;
-  --warning-subtle: rgba(217, 119, 6, 0.1);
+  --warning-subtle: #fffbeb;
   --error: #dc2626;
-  --error-subtle: rgba(220, 38, 38, 0.1);
+  --error-subtle: #fef2f2;
 
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
 
   --radius-xs: 4px;
   --radius-sm: 6px;
@@ -434,10 +434,8 @@ button, input, select, textarea {
   margin-bottom: 18px;
 }
 
-.hero-title-gradient {
-  background: linear-gradient(135deg, var(--text-main) 30%, var(--accent-primary) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.hero-title-accent {
+  color: var(--accent-primary);
 }
 
 .hero-subtitle {
@@ -492,6 +490,35 @@ button, input, select, textarea {
 .quick-drop-sub {
   font-size: 0.85rem;
   color: var(--text-muted);
+}
+
+.quick-drop-action-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.quick-drop-file-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-strong);
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: 0.95rem;
+  max-width: 90%;
+  color: var(--text-main);
+}
+
+.quick-drop-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
 }
 
 /* Category Sections */

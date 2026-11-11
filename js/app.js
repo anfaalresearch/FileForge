@@ -18,12 +18,8 @@
 
     function initTheme() {
         const saved = localStorage.getItem('ff-theme');
-        if (saved) {
-            setTheme(saved);
-        } else {
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            setTheme(prefersDark ? 'dark' : 'light');
-        }
+        // Default to clean white/light theme without gradient
+        setTheme(saved || 'light');
     }
 
     if (themeToggle) {
@@ -188,6 +184,21 @@
 
     if (sidebar && toolPanels.length > 0) {
         initFromURL();
+
+        // Check for pending transferred file from home page
+        if (window.FF && FF.getAndClearPendingFile) {
+            FF.getAndClearPendingFile().then(pending => {
+                if (pending && pending.file) {
+                    const targetTool = pending.toolId || (pending.file.type.includes('pdf') ? 'pdfcompress' : 'converter');
+                    switchTool(targetTool);
+                    FF._currentPendingFile = pending;
+                    if (FF._toolHandlers && FF._toolHandlers[targetTool]) {
+                        FF._toolHandlers[targetTool](pending.file);
+                        FF._currentPendingFile = null;
+                    }
+                }
+            });
+        }
     }
 
     window.addEventListener('popstate', () => {

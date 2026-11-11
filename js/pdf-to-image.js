@@ -35,6 +35,7 @@
     let renderedImages = []; // { name, blob, url }
 
     FF.setupDropZone(upload, fileInput, handleFile);
+    if (window.FF && FF.registerToolHandler) FF.registerToolHandler('pdftoimg', handleFile);
 
     if (removeBtn) removeBtn.addEventListener('click', resetTool);
     if (resetBtn) resetBtn.addEventListener('click', resetTool);

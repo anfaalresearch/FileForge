@@ -31,6 +31,7 @@
     let currentFile = null;
 
     FF.setupDropZone(upload, fileInput, handleFile);
+    if (window.FF && FF.registerToolHandler) FF.registerToolHandler('fileinfo', handleFile);
 
     if (removeBtn) removeBtn.addEventListener('click', resetTool);
 

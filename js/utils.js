@@ -308,4 +308,75 @@ FF.readFileAsArrayBuffer = function (file) {
     });
 };
 
+// ---- Cross-Page File Transfer via IndexedDB ----
+FF._toolHandlers = {};
+
+FF.registerToolHandler = function (toolId, handlerFn) {
+    FF._toolHandlers[toolId] = handlerFn;
+    // Check if there is an in-memory pending file waiting for this tool
+    if (FF._currentPendingFile && FF._currentPendingFile.toolId === toolId) {
+        const file = FF._currentPendingFile.file;
+        FF._currentPendingFile = null;
+        setTimeout(() => handlerFn(file), 50);
+    }
+};
+
+FF.storePendingFile = function (file, toolId) {
+    return new Promise((resolve, reject) => {
+        if (!window.indexedDB) {
+            resolve();
+            return;
+        }
+        const req = indexedDB.open('FileForgeDB', 1);
+        req.onupgradeneeded = (e) => {
+            const db = e.target.result;
+            if (!db.objectStoreNames.contains('transfer')) {
+                db.createObjectStore('transfer', { keyPath: 'id' });
+            }
+        };
+        req.onsuccess = (e) => {
+            const db = e.target.result;
+            const tx = db.transaction('transfer', 'readwrite');
+            const store = tx.objectStore('transfer');
+            store.put({ id: 'pending', file: file, toolId: toolId, ts: Date.now() });
+            tx.oncomplete = () => resolve();
+            tx.onerror = () => reject(tx.error);
+        };
+        req.onerror = () => reject(req.error);
+    });
+};
+
+FF.getAndClearPendingFile = function () {
+    return new Promise((resolve) => {
+        if (!window.indexedDB) {
+            resolve(null);
+            return;
+        }
+        const req = indexedDB.open('FileForgeDB', 1);
+        req.onupgradeneeded = (e) => {
+            const db = e.target.result;
+            if (!db.objectStoreNames.contains('transfer')) {
+                db.createObjectStore('transfer', { keyPath: 'id' });
+            }
+        };
+        req.onsuccess = (e) => {
+            const db = e.target.result;
+            const tx = db.transaction('transfer', 'readwrite');
+            const store = tx.objectStore('transfer');
+            const getReq = store.get('pending');
+            getReq.onsuccess = () => {
+                const data = getReq.result;
+                if (data && data.file && (Date.now() - data.ts < 120000)) {
+                    store.delete('pending');
+                    resolve(data);
+                } else {
+                    resolve(null);
+                }
+            };
+            getReq.onerror = () => resolve(null);
+        };
+        req.onerror = () => resolve(null);
+    });
+};
+
 window.FF = FF;

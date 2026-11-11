@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
@@ -58,7 +58,7 @@
 
         <h1 class="hero-title">
             Local File Processing.<br>
-            <span class="hero-title-gradient">Zero Cloud Uploads.</span>
+            <span class="hero-title-accent">Zero Cloud Uploads.</span>
         </h1>
 
         <p class="hero-subtitle">
@@ -67,13 +67,24 @@
 
         <!-- Quick Universal Dropzone -->
         <div class="hero-quick-drop" id="quickDropZone" role="button" tabindex="0">
-            <input type="file" id="quickFileInput" class="hidden" multiple>
-            <div class="quick-drop-content">
+            <input type="file" id="quickFileInput" class="hidden">
+            <div class="quick-drop-content" id="quickDropInitial">
                 <div class="quick-drop-icon">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                 </div>
                 <div class="quick-drop-title">Drop any image or PDF here to start</div>
                 <div class="quick-drop-sub">Drop an image for Conversion / Resizing / Compression · Drop a PDF for Merge / Compress / Edit</div>
+            </div>
+
+            <!-- Quick Drop Interactive Action Card -->
+            <div class="quick-drop-action-card hidden" id="quickDropActionCard">
+                <div class="quick-drop-file-pill">
+                    <span id="quickDropFileName">document.pdf</span>
+                    <span class="mono" id="quickDropFileSize" style="color: var(--text-muted); font-size: 0.82rem;">0 KB</span>
+                    <button type="button" class="btn btn-ghost btn-sm" id="quickDropCancel" title="Clear file" style="padding: 2px 8px; margin-left: 6px;">✕</button>
+                </div>
+                <div style="font-size: 0.86rem; font-weight: 600; color: var(--text-muted);">Select action for this file:</div>
+                <div class="quick-drop-actions" id="quickDropActions"></div>
             </div>
         </div>
 
@@ -396,6 +407,9 @@
         </div>
     </footer>
 
+    <!-- Utilities for transfer & formatting -->
+    <script src="js/utils.js"></script>
+
     <script>
         // Landing page quick dropzone routing
         const dropZone = document.getElementById('quickDropZone');
@@ -403,9 +417,9 @@
         const html = document.documentElement;
         const themeToggle = document.getElementById('themeToggle');
 
-        // Theme toggle
+        // Theme toggle - Default pure white light theme
         function initTheme() {
-            const saved = localStorage.getItem('ff-theme') || 'dark';
+            const saved = localStorage.getItem('ff-theme') || 'light';
             html.setAttribute('data-theme', saved);
         }
         if (themeToggle) {
@@ -419,7 +433,11 @@
 
         // Dropzone interactions
         if (dropZone && fileInput) {
-            dropZone.addEventListener('click', () => fileInput.click());
+            dropZone.addEventListener('click', (e) => {
+                // Don't trigger file picker if clicking action buttons or cancel
+                if (e.target.closest('button')) return;
+                fileInput.click();
+            });
             dropZone.addEventListener('dragover', (e) => {
                 e.preventDefault();
                 dropZone.classList.add('drag-over');
@@ -429,19 +447,95 @@
                 e.preventDefault();
                 dropZone.classList.remove('drag-over');
                 const files = e.dataTransfer.files;
-                if (files && files.length > 0) routeFile(files[0]);
+                if (files && files.length > 0) handleDroppedFile(files[0]);
             });
             fileInput.addEventListener('change', (e) => {
-                if (e.target.files && e.target.files.length > 0) routeFile(e.target.files[0]);
+                if (e.target.files && e.target.files.length > 0) handleDroppedFile(e.target.files[0]);
             });
         }
 
-        function routeFile(file) {
-            if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
-                window.location.href = 'tools.html?tool=pdfmerge';
+        let currentUploadedFile = null;
+
+        function handleDroppedFile(file) {
+            if (!file) return;
+            currentUploadedFile = file;
+
+            const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+            const initialView = document.getElementById('quickDropInitial');
+            const actionCard = document.getElementById('quickDropActionCard');
+            const nameEl = document.getElementById('quickDropFileName');
+            const sizeEl = document.getElementById('quickDropFileSize');
+            const actionsEl = document.getElementById('quickDropActions');
+
+            nameEl.textContent = file.name;
+            sizeEl.textContent = window.FF ? FF.formatFileSize(file.size) : (Math.round(file.size / 1024) + ' KB');
+
+            actionsEl.innerHTML = '';
+
+            if (isPdf) {
+                const pdfActions = [
+                    { id: 'pdfcompress', label: '⚡ Compress PDF', primary: true, isPdf: true },
+                    { id: 'pdfmerge', label: 'Merge PDF', isPdf: true },
+                    { id: 'pdfedit', label: 'Edit & Sign', isPdf: true },
+                    { id: 'pdfsplit', label: 'Split Pages', isPdf: true },
+                    { id: 'pdftoimg', label: 'Convert to Images', isPdf: true },
+                ];
+                pdfActions.forEach(act => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = act.primary ? 'btn btn-pdf btn-sm' : 'btn btn-outline btn-sm';
+                    btn.textContent = act.label;
+                    btn.onclick = async (e) => {
+                        e.stopPropagation();
+                        btn.textContent = 'Opening Studio...';
+                        btn.disabled = true;
+                        if (window.FF && FF.storePendingFile) {
+                            await FF.storePendingFile(file, act.id);
+                        }
+                        window.location.href = 'tools.html?tool=' + act.id;
+                    };
+                    actionsEl.appendChild(btn);
+                });
             } else {
-                window.location.href = 'tools.html?tool=converter';
+                const imgActions = [
+                    { id: 'converter', label: '⚡ Convert Format', primary: true },
+                    { id: 'resizer', label: 'Resize (215×100 etc.)' },
+                    { id: 'compressor', label: 'Compress Image' },
+                    { id: 'reducer', label: 'Reduce to Target Size' },
+                    { id: 'cropper', label: 'Crop & Rotate' },
+                    { id: 'imagepdf', label: 'Convert to PDF' },
+                ];
+                imgActions.forEach(act => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = act.primary ? 'btn btn-primary btn-sm' : 'btn btn-outline btn-sm';
+                    btn.textContent = act.label;
+                    btn.onclick = async (e) => {
+                        e.stopPropagation();
+                        btn.textContent = 'Opening Studio...';
+                        btn.disabled = true;
+                        if (window.FF && FF.storePendingFile) {
+                            await FF.storePendingFile(file, act.id);
+                        }
+                        window.location.href = 'tools.html?tool=' + act.id;
+                    };
+                    actionsEl.appendChild(btn);
+                });
             }
+
+            initialView.classList.add('hidden');
+            actionCard.classList.remove('hidden');
+        }
+
+        const cancelBtn = document.getElementById('quickDropCancel');
+        if (cancelBtn) {
+            cancelBtn.onclick = (e) => {
+                e.stopPropagation();
+                currentUploadedFile = null;
+                fileInput.value = '';
+                document.getElementById('quickDropActionCard').classList.add('hidden');
+                document.getElementById('quickDropInitial').classList.remove('hidden');
+            };
         }
     </script>
 </body>

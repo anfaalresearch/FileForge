@@ -29,6 +29,7 @@
     let pdfBlob = null;
 
     FF.setupDropZone(upload, fileInput, handleFiles);
+    if (window.FF && FF.registerToolHandler) FF.registerToolHandler('imagepdf', handleFiles);
 
     if (addMoreBtn && addInput) {
         addMoreBtn.addEventListener('click', () => addInput.click());

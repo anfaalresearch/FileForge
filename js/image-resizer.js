@@ -46,6 +46,7 @@
 
     // Setup drop zone
     FF.setupDropZone(upload, fileInput, handleFile);
+    if (window.FF && FF.registerToolHandler) FF.registerToolHandler('resizer', handleFile);
 
     // Aspect ratio lock toggle
     if (lockBtn) {
